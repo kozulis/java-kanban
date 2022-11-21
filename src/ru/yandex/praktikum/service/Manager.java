@@ -14,9 +14,9 @@ public class Manager {
     HashMap<Integer, Epic> epics =new HashMap<>();
     HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-    public HashMap<Integer, Subtask> getSubtasks() {
-        return subtasks;
-    }
+//    public HashMap<Integer, Subtask> getSubtasks() {
+//        return subtasks;
+//    }
 
     // Методы для Task
     /**
@@ -108,7 +108,7 @@ public class Manager {
      */
     public void updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getId(), subtask);
-        changeEpicStatus(subtask);
+        changeEpicStatus(subtask.getEpicId());
     }
 
     /**
@@ -184,22 +184,23 @@ public class Manager {
     /**
      * Изменение статуса эпика в зависимости от статусов подзадач
      */
-    private void changeEpicStatus(Subtask subtask) {
+    private void changeEpicStatus(int epicId) {
         int statusNew = 0;
         int statusDone = 0;
-        for (Integer id : getEpicById(subtask.getEpicId()).getSubTaskIds()) {
+        Epic epic = getEpicById(epicId);
+        for (Integer id : epic.getSubTaskIds()) {
             if(subtasks.get(id).getStatus().equals("NEW")) {
                 statusNew++;
             } else if (subtasks.get(id).getStatus().equals("DONE")) {
                 statusDone++;
             }
         }
-        if (statusDone == getEpicById(subtask.getEpicId()).subTaskIds.size()) {
-            getEpicById(subtask.getEpicId()).setStatus("DONE");
-        } else if (statusNew == getEpicById(subtask.getEpicId()).subTaskIds.size()) {
-            getEpicById(subtask.getEpicId()).setStatus("NEW");
+        if (statusDone == epic.subTaskIds.size()) {
+            epic.setStatus("DONE");
+        } else if (statusNew == epic.subTaskIds.size()) {
+            epic.setStatus("NEW");
         } else {
-            getEpicById(subtask.getEpicId()).setStatus("IN_PROGRESS");
+            epic.setStatus("IN_PROGRESS");
         }
     }
 }
