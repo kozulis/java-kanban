@@ -1,8 +1,8 @@
-package service;
+package ru.yandex.praktikum.service;
 
-import model.Epic;
-import model.Subtask;
-import model.Task;
+import ru.yandex.praktikum.model.Epic;
+import ru.yandex.praktikum.model.Subtask;
+import ru.yandex.praktikum.model.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package model;
+package ru.yandex.praktikum.model;
 
 import java.util.ArrayList;
 

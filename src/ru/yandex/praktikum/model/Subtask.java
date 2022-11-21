@@ -1,4 +1,4 @@
-package model;
+package ru.yandex.praktikum.model;
 
 public class Subtask extends Task{
     int epicId;

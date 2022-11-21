@@ -1,4 +1,4 @@
-package model;
+package ru.yandex.praktikum.model;
 
 public class Task {
     int id;

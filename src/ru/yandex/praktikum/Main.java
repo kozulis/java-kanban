@@ -1,7 +1,9 @@
-import model.Epic;
-import model.Subtask;
-import model.Task;
-import service.Manager;
+package ru.yandex.praktikum;
+
+import ru.yandex.praktikum.model.Epic;
+import ru.yandex.praktikum.model.Subtask;
+import ru.yandex.praktikum.model.Task;
+import ru.yandex.praktikum.service.Manager;
 
 public class Main {
 
