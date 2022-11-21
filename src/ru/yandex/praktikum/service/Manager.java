@@ -54,9 +54,11 @@ public class Manager {
 
     /**
      * обновление задачи
+     * @return номер id задачи
      */
-    public void updateTask(Task task) {
+    public int updateTask(Task task) {
         tasks.put(task.getId(), task);
+        return task.getId();
     }
 
     /**
@@ -93,7 +95,7 @@ public class Manager {
     /**
      * создание новой подзадачи и добавление ее id в список эпика
      *
-     * @return
+     * @return id подзадачи
      */
     public int addNewSubtask(Subtask subtask) {
         subtask.setId(generateId);
@@ -105,10 +107,13 @@ public class Manager {
 
     /**
      * обновление подзадачи
+     *
+     * @return id подзадачи
      */
-    public void updateSubtask(Subtask subtask) {
+    public int updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getId(), subtask);
         changeEpicStatus(subtask.getEpicId());
+        return subtask.getId();
     }
 
     /**
@@ -170,8 +175,9 @@ public class Manager {
     /**
      * обновление эпика
      */
-    public void updateEpic(Epic epic) {
+    public int updateEpic(Epic epic) {
         epics.put(epic.getId(), epic);
+        return epic.getId();
     }
 
     /**

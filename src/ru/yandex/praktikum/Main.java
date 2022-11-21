@@ -53,8 +53,8 @@ public class Main {
         System.out.println("Обновление задачи");
         Task task3 = new Task(1, "Утренняя зарядка", "Пробежка 3 км", "DONE");
         Task task4 = new Task(2, "Позавтракать", "Сварить кашку", "DONE");
-        manager.updateTask(task3);
-        manager.updateTask(task4);
+        System.out.println("Вернули id задачи: " + manager.updateTask(task3));
+        System.out.println("Вернули id задачи: " + manager.updateTask(task4));
         System.out.println(manager.getTasksList());
         System.out.println();
 
@@ -76,11 +76,10 @@ public class Main {
         Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
                 "Синие брюки", "DONE");
         Subtask subtask4 = new Subtask(epic.getId(), 5, "Надеть рубашку",
-                "Белая рубашка", "DONE");
-        manager.updateSubtask(subtask3);
-        manager.updateSubtask(subtask4);
-        System.out.println(manager.getSubtaskById(4));
-        System.out.println(manager.getSubtaskById(5));
+                "Белая рубашка", "DONE"); //todo вернуть id подзадач
+        System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask3));
+        System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask4));
+        System.out.println(manager.getSubtaskListByEpic(epic));
         System.out.println();
 
         System.out.println("Получение списка всех эпиков");
