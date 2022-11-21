@@ -13,6 +13,7 @@ public class Manager {
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, Epic> epics =new HashMap<>();
     HashMap<Integer, Subtask> subtasks = new HashMap<>();
+
     public HashMap<Integer, Subtask> getSubtasks() {
         return subtasks;
     }
