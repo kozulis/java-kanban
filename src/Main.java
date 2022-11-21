@@ -44,7 +44,7 @@ public class Main {
         System.out.println(manager.getTasksList());
         System.out.println();
 
-        System.out.println("Получение списка по id");
+        System.out.println("Получение задачи по id");
         System.out.println(manager.getTaskById(1));
         System.out.println();
 
@@ -66,18 +66,14 @@ public class Main {
         System.out.println(manager.getTasksList());
         System.out.println();
 
-        System.out.println("Получение списка подзадач определенного эпика"); /* тут не понял, какой список нужно */
-        System.out.println(manager.getSubtaskListByEpic(epic));              /* выводить. Поэтому для проверки вывел */
-        for (Integer id : epic.getSubTaskIds()) {                             /* и список с id подзадач, и сам список */
-            manager.getSubtaskById(id);                                      /* подзадач ``\ (`_`) /`` */
-            System.out.println(manager.getSubtasks().get(id));
-        }
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(manager.getSubtaskListByEpic(epic));
         System.out.println();
 
         System.out.println("Обновление подзадач эпика");
-        Subtask subtask3 = new Subtask(epic.getId(), 4/*manager.generateId*/, "Надеть брюки",
+        Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
                 "Синие брюки", "DONE");
-        Subtask subtask4 = new Subtask(epic.getId(), 5/*manager.generateId*/, "Надеть рубашку",
+        Subtask subtask4 = new Subtask(epic.getId(), 5, "Надеть рубашку",
                 "Белая рубашка", "DONE");
         manager.updateSubtask(subtask3);
         manager.updateSubtask(subtask4);
@@ -85,12 +81,22 @@ public class Main {
         System.out.println(manager.getSubtaskById(5));
         System.out.println();
 
-        System.out.println("Изменение статуса эпика в зависимости от статусов подзадач");
+        System.out.println("Получение списка всех эпиков");
+        System.out.println(manager.getEpicsList());
+        System.out.println();
+
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(manager.getSubtasksList());
+        System.out.println();
+
+        System.out.println("Проверка зменение статуса эпика в зависимости от статусов подзадач");
         System.out.println(manager.getEpicById(3));
         System.out.println();
 
-        System.out.println("Удаление всех эпиков");
+        System.out.println("Удаление всех эпиков и проверка списка эпиков");
         manager.cleanAllEpics();
-        System.out.println(manager.getListEpics());
+        System.out.println(manager.getEpicsList());
+
+
     }
 }

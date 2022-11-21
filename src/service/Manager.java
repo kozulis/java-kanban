@@ -13,7 +13,6 @@ public class Manager {
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, Epic> epics =new HashMap<>();
     HashMap<Integer, Subtask> subtasks = new HashMap<>();
-
     public HashMap<Integer, Subtask> getSubtasks() {
         return subtasks;
     }
@@ -21,9 +20,10 @@ public class Manager {
     // Методы для Task
     /**
      * получение списка задач
+     * @return список задач
      */
-    public HashMap<Integer, Task> getTasksList() {
-        return tasks;
+    public ArrayList<Task> getTasksList() {
+        return new ArrayList<>(tasks.values());
     }
 
     /**
@@ -69,9 +69,10 @@ public class Manager {
 
     /**
      * получение списка подзадач
+     * @return список подзадач
      */
-    public HashMap<Integer, Subtask> getSubtasksList() {
-        return subtasks;
+    public ArrayList<Subtask> getSubtasksList() {
+        return new ArrayList<>(subtasks.values());
     }
 
     /**
@@ -117,19 +118,26 @@ public class Manager {
     }
 
     /**
-     * получение списка всех подзадач определенного эпика
+     * получение списка подзадач определенного эпика
+     * @param epic
+     * @return список задач
      */
-    public ArrayList<Integer> getSubtaskListByEpic(Epic epic) {
-        return epic.getSubTaskIds();
+    public ArrayList<Subtask> getSubtaskListByEpic(Epic epic) {
+        ArrayList<Subtask> subtaskListByEpic = new ArrayList<>();
+        for (Integer id : epic.subTaskIds) {
+            subtaskListByEpic.add(getSubtaskById(id));
+        }
+        return subtaskListByEpic;
     }
 
 // Методы для Epic
 
     /**
      * получение списка эпиков
+     * @return список эпиков
      */
-    public HashMap<Integer, Epic> getListEpics() {
-        return epics;
+    public ArrayList<Epic> getEpicsList() {
+        return new ArrayList<>(epics.values());
     }
 
     /**
