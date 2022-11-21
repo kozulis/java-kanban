@@ -106,6 +106,7 @@ public class Manager {
      */
     public void updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getId(), subtask);
+        changeEpicStatus(subtask);
     }
 
     /**
@@ -174,22 +175,22 @@ public class Manager {
     /**
      * Изменение статуса эпика в зависимости от статусов подзадач
      */
-    public void changeEpicStatus(Epic epic) {
+    private void changeEpicStatus(Subtask subtask) {
         int statusNew = 0;
         int statusDone = 0;
-        for (Integer id : epic.getSubTaskIds()) {
+        for (Integer id : getEpicById(subtask.getEpicId()).getSubTaskIds()) {
             if(subtasks.get(id).getStatus().equals("NEW")) {
                 statusNew++;
             } else if (subtasks.get(id).getStatus().equals("DONE")) {
                 statusDone++;
             }
         }
-        if (statusDone == epic.subTaskIds.size()) {
-            epic.setStatus("DONE");
-        } else if (statusNew == epic.subTaskIds.size()) {
-            epic.setStatus("NEW");
+        if (statusDone == getEpicById(subtask.getEpicId()).subTaskIds.size()) {
+            getEpicById(subtask.getEpicId()).setStatus("DONE");
+        } else if (statusNew == getEpicById(subtask.getEpicId()).subTaskIds.size()) {
+            getEpicById(subtask.getEpicId()).setStatus("NEW");
         } else {
-            epic.setStatus("IN_PROGRESS");
+            getEpicById(subtask.getEpicId()).setStatus("IN_PROGRESS");
         }
     }
 }

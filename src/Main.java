@@ -86,7 +86,6 @@ public class Main {
         System.out.println();
 
         System.out.println("Изменение статуса эпика в зависимости от статусов подзадач");
-        manager.changeEpicStatus(epic);
         System.out.println(manager.getEpicById(3));
         System.out.println();
 
