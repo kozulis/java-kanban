@@ -12,9 +12,13 @@ public class Manager {
 
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, Epic> epics =new HashMap<>();
-    public HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
-// Методы для Task
+    public HashMap<Integer, Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    // Методы для Task
     /**
      * получение списка задач
      */
@@ -38,11 +42,13 @@ public class Manager {
 
     /**
      * Создание новой задачи
+     * @return номер id задачи
      */
-    public void addNewTask(Task task) {
+    public int addNewTask(Task task) {
         task.setId(generateId);
         tasks.put(task.getId(), task);
         generateId++;
+        return task.getId();
     }
 
     /**
@@ -84,12 +90,15 @@ public class Manager {
 
     /**
      * создание новой подзадачи и добавление ее id в список эпика
+     *
+     * @return
      */
-    public void addNewSubtask(Subtask subtask, Epic epic) {
+    public int addNewSubtask(Subtask subtask) {
         subtask.setId(generateId);
-        subtasks.put(generateId, subtask);
-        epic.addSubtaskId(generateId);
+        subtasks.put(subtask.getId(), subtask);
+        getEpicById(subtask.getEpicId()).addSubtaskId(subtask.getId());
         generateId++;
+        return subtask.getId();
     }
 
     /**
@@ -138,11 +147,14 @@ public class Manager {
 
     /**
      * создание эпика
+     *
+     * @return
      */
-    public void addNewEpic(Epic epic) {
+    public int addNewEpic(Epic epic) {
         epic.setId(generateId);
-        epics.put(generateId, epic);
+        epics.put(epic.getId(), epic);
         generateId++;
+        return epic.getId();
     }
 
     /**
