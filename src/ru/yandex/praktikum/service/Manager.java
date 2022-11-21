@@ -126,7 +126,7 @@ public class Manager {
      */
     public ArrayList<Subtask> getSubtaskListByEpic(Epic epic) {
         ArrayList<Subtask> subtaskListByEpic = new ArrayList<>();
-        for (Integer id : epic.subTaskIds) {
+        for (Integer id : epic.subtaskIds) {
             subtaskListByEpic.add(getSubtaskById(id));
         }
         return subtaskListByEpic;
@@ -180,6 +180,9 @@ public class Manager {
      * удаление эпика по id
      */
     public void removeEpicById(Integer id) {
+        for (Integer idSub : getEpicById(id).subtaskIds) {
+            removeSubtaskById(idSub);
+        }
         epics.remove(id);
     }
 
@@ -190,16 +193,16 @@ public class Manager {
         int statusNew = 0;
         int statusDone = 0;
         Epic epic = getEpicById(epicId);
-        for (Integer id : epic.getSubTaskIds()) {
+        for (Integer id : epic.getSubtaskIds()) {
             if(subtasks.get(id).getStatus().equals("NEW")) {
                 statusNew++;
             } else if (subtasks.get(id).getStatus().equals("DONE")) {
                 statusDone++;
             }
         }
-        if (statusDone == epic.subTaskIds.size()) {
+        if (statusDone == epic.subtaskIds.size()) {
             epic.setStatus("DONE");
-        } else if (statusNew == epic.subTaskIds.size()) {
+        } else if (statusNew == epic.subtaskIds.size()) {
             epic.setStatus("NEW");
         } else {
             epic.setStatus("IN_PROGRESS");

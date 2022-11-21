@@ -76,7 +76,7 @@ public class Main {
         Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
                 "Синие брюки", "DONE");
         Subtask subtask4 = new Subtask(epic.getId(), 5, "Надеть рубашку",
-                "Белая рубашка", "DONE"); //todo вернуть id подзадач
+                "Белая рубашка", "DONE");
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask3));
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask4));
         System.out.println(manager.getSubtaskListByEpic(epic));
@@ -94,9 +94,18 @@ public class Main {
         System.out.println(manager.getEpicById(3));
         System.out.println();
 
-        System.out.println("Удаление всех эпиков и проверка списка эпиков");
-        manager.cleanAllEpics();
+//        System.out.println("Удаление всех эпиков и проверка списка эпиков");
+//        manager.cleanAllEpics();
+//        System.out.println(manager.getEpicsList());
+
+        System.out.println("Удаление эпика по id");
+        manager.removeEpicById(3);
         System.out.println(manager.getEpicsList());
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(manager.getSubtaskListByEpic(epic));
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(manager.getSubtasksList());
+        System.out.println();
 
 
     }
