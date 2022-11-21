@@ -143,10 +143,11 @@ public class Manager {
     }
 
     /**
-     * удаление всех эпиков
+     * удаление всех эпиков и удаление всех подзадач из мапы подзадач
      */
     public void cleanAllEpics() {
         epics.clear();
+        subtasks.clear();
     }
 
     /**
@@ -177,7 +178,7 @@ public class Manager {
     }
 
     /**
-     * удаление эпика по id
+     * удаление эпика по id и удаление его подзадач из мапы подзадач
      */
     public void removeEpicById(Integer id) {
         for (Integer idSub : getEpicById(id).subtaskIds) {
