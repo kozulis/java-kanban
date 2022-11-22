@@ -118,7 +118,16 @@ public class Manager {
     public void removeSubtaskById(Integer id) {
         getEpicById(getSubtaskById(id).getEpicId()).removeSubtaskById(id);
         subtasks.remove(id);
+    }
 
+    /**
+     * удаление всех подзадач определенного эпика
+     */
+    public void cleanAllSubtasksByEpic(Epic epic) {
+        for (Integer id : epic.subtaskIds) {
+            subtasks.remove(id);
+        }
+        epic.cleanAllSubtask();
     }
 
     /**
