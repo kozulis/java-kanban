@@ -9,20 +9,32 @@ public class Epic extends Task{
         super(id, name, description, status);
     }
 
+    /**
+     * добавление подзадачи в список
+     */
     public void addSubtaskId(int id) {
         subtaskIds.add(id);
     }
 
+    /**
+     * получение всех id из списка
+     */
     public ArrayList<Integer> getSubtaskIds() {
         return subtaskIds;
     }
 
-    public void cleanAllSubtask() {  /* на случай, если нужно будет удалить все подзадачи определенного эпика */
+    /**
+     * удаление всего списка подзадач
+     */
+    public void cleanAllSubtask() {
         subtaskIds.clear();
     }
 
-     public void removeSubtaskById(int id) {  /* на случай, если нужно будет удалить все подзадачи определенного эпика*/
-        subtaskIds.remove(Integer.valueOf(id));
+    /**
+     * удаление подзадачи из списка
+     */
+     public void removeSubtaskById(Integer id) {
+        subtaskIds.remove(id);
     }
 
     @Override

@@ -42,34 +42,34 @@ public class Main {
         System.out.println(manager.getSubtaskById(7));
         System.out.println();
 
-        System.out.println("Получение списка всех задач");
-        System.out.println(manager.getTasksList());
-        System.out.println();
+//        System.out.println("Получение списка всех задач");
+//        System.out.println(manager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Получение задачи по id");
+//        System.out.println(manager.getTaskById(1));
+//        System.out.println();
 
-        System.out.println("Получение задачи по id");
-        System.out.println(manager.getTaskById(1));
-        System.out.println();
+//        System.out.println("Обновление задачи");
+//        Task task3 = new Task(1, "Утренняя зарядка", "Пробежка 3 км", "DONE");
+//        Task task4 = new Task(2, "Позавтракать", "Сварить кашку", "DONE");
+//        System.out.println("Вернули id задачи: " + manager.updateTask(task3));
+//        System.out.println("Вернули id задачи: " + manager.updateTask(task4));
+//        System.out.println(manager.getTasksList());
+//        System.out.println();
 
-        System.out.println("Обновление задачи");
-        Task task3 = new Task(1, "Утренняя зарядка", "Пробежка 3 км", "DONE");
-        Task task4 = new Task(2, "Позавтракать", "Сварить кашку", "DONE");
-        System.out.println("Вернули id задачи: " + manager.updateTask(task3));
-        System.out.println("Вернули id задачи: " + manager.updateTask(task4));
-        System.out.println(manager.getTasksList());
-        System.out.println();
-
-        System.out.println("Удаление задачи по id");
-        manager.removeTaskById(2);
-        System.out.println(manager.getTasksList());
-        System.out.println();
-
-        System.out.println("Удаление списка всех задач");
-        manager.cleanAllTasks();
-        System.out.println(manager.getTasksList());
-        System.out.println();
+//        System.out.println("Удаление задачи по id");
+//        manager.removeTaskById(2);
+//        System.out.println(manager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Удаление списка всех задач");
+//        manager.cleanAllTasks();
+//        System.out.println(manager.getTasksList());
+//        System.out.println();
 
         System.out.println("Получение списка подзадач определенного эпика");
-        System.out.println(manager.getSubtaskListByEpic(epic));
+        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
         System.out.println();
 
         System.out.println("Обновление подзадач эпика");
@@ -79,8 +79,51 @@ public class Main {
                 "Белая рубашка", "DONE");
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask3));
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask4));
-        System.out.println(manager.getSubtaskListByEpic(epic));
+        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
         System.out.println();
+
+        System.out.println("Получение списка всех эпиков");
+        System.out.println(manager.getEpicsList());
+        System.out.println();
+
+//        System.out.println("Получение списка всех подзадач");
+//        System.out.println(manager.getSubtasksList());
+//        System.out.println();
+
+//        System.out.println("Проверка изменения статуса эпика в зависимости от статусов подзадач");
+//        System.out.println(manager.getEpicById(3));
+//        System.out.println();
+
+//        System.out.println("Удаление всех эпиков и проверка списка эпиков");
+//        manager.cleanAllEpics();
+//        System.out.println(manager.getEpicsList());
+
+//        System.out.println("Удаление эпика по id и его подзадач в из мапы");
+//        manager.removeEpicById(3);
+//        System.out.println(manager.getEpicsList());
+
+
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
+        System.out.println();
+
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(manager.getSubtasksList());
+        System.out.println();
+
+        System.out.println("удаление подзадачи");
+        manager.removeSubtaskById(4);
+
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
+        System.out.println();
+
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(manager.getSubtasksList());
+        System.out.println();
+
+        System.out.println("Удаление эпика по id и его подзадач в из мапы");
+        manager.removeEpicById(3);
 
         System.out.println("Получение списка всех эпиков");
         System.out.println(manager.getEpicsList());
@@ -90,22 +133,17 @@ public class Main {
         System.out.println(manager.getSubtasksList());
         System.out.println();
 
-        System.out.println("Проверка зменение статуса эпика в зависимости от статусов подзадач");
-        System.out.println(manager.getEpicById(3));
+        System.out.println("Удаление всех эпиков и проверка списка эпиков");
+        manager.cleanAllEpics();
+        System.out.println(manager.getEpicsList());
         System.out.println();
 
-//        System.out.println("Удаление всех эпиков и проверка списка эпиков");
-//        manager.cleanAllEpics();
-//        System.out.println(manager.getEpicsList());
-
-        System.out.println("Удаление эпика по id");
-        manager.removeEpicById(3);
-        System.out.println(manager.getEpicsList());
-        System.out.println("Получение списка подзадач определенного эпика");
-        System.out.println(manager.getSubtaskListByEpic(epic));
         System.out.println("Получение списка всех подзадач");
         System.out.println(manager.getSubtasksList());
         System.out.println();
+
+
+
 
 
     }

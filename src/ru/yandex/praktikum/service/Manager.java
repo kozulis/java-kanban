@@ -113,15 +113,16 @@ public class Manager {
     }
 
     /**
-     * удаление подзадачи по id
+     * удаление подзадачи по id из мапы и из списка задач эпика
      */
     public void removeSubtaskById(Integer id) {
+        getEpicById(getSubtaskById(id).getEpicId()).removeSubtaskById(id);
         subtasks.remove(id);
+
     }
 
     /**
      * получение списка подзадач определенного эпика
-     * @param epic
      * @return список задач
      */
     public ArrayList<Subtask> getSubtaskListByEpic(Epic epic) {
@@ -160,7 +161,7 @@ public class Manager {
     /**
      * создание эпика
      *
-     * @return
+     * @return id  эпика
      */
     public int addNewEpic(Epic epic) {
         epic.setId(generateId);
@@ -182,7 +183,7 @@ public class Manager {
      */
     public void removeEpicById(Integer id) {
         for (Integer idSub : getEpicById(id).subtaskIds) {
-            removeSubtaskById(idSub);
+            subtasks.remove(idSub);
         }
         epics.remove(id);
     }
