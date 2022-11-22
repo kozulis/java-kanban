@@ -76,7 +76,7 @@ public class Main {
         Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
                 "Синие брюки", "DONE");
         Subtask subtask4 = new Subtask(epic.getId(), 5, "Надеть рубашку",
-                "Белая рубашка", "DONE");
+                "Белая рубашка", "NEW");
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask3));
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask4));
         System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
@@ -102,17 +102,17 @@ public class Main {
 //        manager.removeEpicById(3);
 //        System.out.println(manager.getEpicsList());
 
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
+        System.out.println();
 
-//        System.out.println("Получение списка подзадач определенного эпика");
-//        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
-//        System.out.println();
-//
-//        System.out.println("Получение списка всех подзадач");
-//        System.out.println(manager.getSubtasksList());
-//        System.out.println();
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(manager.getSubtasksList());
+        System.out.println();
 
-//        System.out.println("удаление подзадачи");
-//        manager.removeSubtaskById(4);
+//        System.out.println("Очистка списка подзадач определенного эпика");
+//        manager.cleanAllSubtasksByEpic(manager.getEpicById(3));
+//        System.out.println();
 
         System.out.println("Получение списка подзадач определенного эпика");
         System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
@@ -122,41 +122,13 @@ public class Main {
         System.out.println(manager.getSubtasksList());
         System.out.println();
 
-        System.out.println("Очистка списка подзадач определенного эпика");
-        manager.cleanAllSubtasksByEpic(manager.getEpicById(3));
-        System.out.println();
-
-        System.out.println("Получение списка подзадач определенного эпика");
-        System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
-        System.out.println();
-
-        System.out.println("Получение списка всех подзадач");
-        System.out.println(manager.getSubtasksList());
-        System.out.println();
+        System.out.println("удаление подзадачи");
+        manager.removeSubtaskById(5);
 
         System.out.println("Получение списка всех эпиков");
         System.out.println(manager.getEpicsList());
         System.out.println();
 
-//        System.out.println("Удаление эпика по id и его подзадач в из мапы");
-//        manager.removeEpicById(3);
-//
-//        System.out.println("Получение списка всех эпиков");
-//        System.out.println(manager.getEpicsList());
-//        System.out.println();
-//
-//        System.out.println("Получение списка всех подзадач");
-//        System.out.println(manager.getSubtasksList());
-//        System.out.println();
-//
-//        System.out.println("Удаление всех эпиков и проверка списка эпиков");
-//        manager.cleanAllEpics();
-//        System.out.println(manager.getEpicsList());
-//        System.out.println();
-//
-//        System.out.println("Получение списка всех подзадач");
-//        System.out.println(manager.getSubtasksList());
-//        System.out.println();
 
 
 
