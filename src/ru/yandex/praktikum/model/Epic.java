@@ -9,18 +9,15 @@ public class Epic extends Task{
         super(id, name, description, status);
     }
 
+    public ArrayList<Integer> getSubtaskIds() {
+        return subtaskIds;
+    }
+
     /**
      * добавление подзадачи в список
      */
     public void addSubtaskId(int id) {
         subtaskIds.add(id);
-    }
-
-    /**
-     * получение всех id из списка
-     */
-    public ArrayList<Integer> getSubtaskIds() {
-        return subtaskIds;
     }
 
     /**
