@@ -11,7 +11,7 @@ public class Manager {
     public int generateId = 1;
 
     HashMap<Integer, Task> tasks = new HashMap<>();
-    HashMap<Integer, Epic> epics =new HashMap<>();
+    HashMap<Integer, Epic> epics = new HashMap<>();
     HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     // Методы для Task
@@ -52,9 +52,8 @@ public class Manager {
      * обновление задачи
      * @return номер id задачи
      */
-    public int updateTask(Task task) {
+    public void updateTask(Task task) {
         tasks.put(task.getId(), task);
-        return task.getId();
     }
 
     /**
@@ -79,6 +78,9 @@ public class Manager {
      */
     public void cleanAllSubtasks() {
         subtasks.clear();
+        for (Integer key : epics.keySet()) {
+            epics.get(key).cleanAllSubtask();
+        }
     }
 
     /**

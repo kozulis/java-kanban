@@ -110,6 +110,14 @@ public class Main {
         System.out.println(manager.getSubtasksList());
         System.out.println();
 
+        System.out.println("Очистка всех подзадач ");
+        manager.cleanAllSubtasks();
+        System.out.println();
+
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(manager.getSubtasksList());
+        System.out.println();
+
 //        System.out.println("Очистка списка подзадач определенного эпика");
 //        manager.cleanAllSubtasksByEpic(manager.getEpicById(3));
 //        System.out.println();
@@ -122,12 +130,12 @@ public class Main {
         System.out.println(manager.getSubtasksList());
         System.out.println();
 
-        System.out.println("удаление подзадачи");
-        manager.removeSubtaskById(5);
-
-        System.out.println("Получение списка всех эпиков");
-        System.out.println(manager.getEpicsList());
-        System.out.println();
+//        System.out.println("удаление подзадачи");
+//        manager.removeSubtaskById(5);
+//
+//        System.out.println("Получение списка всех эпиков");
+//        System.out.println(manager.getEpicsList());
+//        System.out.println();
 
 
 
