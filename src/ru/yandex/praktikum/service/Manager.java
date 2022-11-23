@@ -80,6 +80,7 @@ public class Manager {
         subtasks.clear();
         for (Integer key : epics.keySet()) {
             epics.get(key).cleanAllSubtask();
+            changeEpicStatus(key);
         }
     }
 
