@@ -213,9 +213,9 @@ public class Manager {
         Epic epic = getEpicById(epicId);
         if (!epic.subtaskIds.isEmpty()) {
             for (Integer id : epic.getSubtaskIds()) {
-                if (subtasks.get(id).getStatus().equals("NEW")) {
+                if (subtasks.get(id).getStatus().equals(TaskStatus.NEW)) {
                     statusNew++;
-                } else if (subtasks.get(id).getStatus().equals("DONE")) {
+                } else if (subtasks.get(id).getStatus().equals(TaskStatus.DONE)) {
                     statusDone++;
                 }
             }
