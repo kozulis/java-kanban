@@ -1,11 +1,13 @@
 package ru.yandex.praktikum.model;
 
+import ru.yandex.praktikum.TaskStatus;
+
 public class Task {
     int id;
     String name;
     String description;
-    String status;    //NEW, IN_PROGRESS, DONE
-    public Task(int id, String name, String description, String status) {
+    TaskStatus status;    //NEW, IN_PROGRESS, DONE
+    public Task(int id, String name, String description, TaskStatus status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,11 +38,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 

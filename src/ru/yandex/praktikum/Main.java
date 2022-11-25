@@ -11,21 +11,21 @@ public class Main {
         Manager manager = new Manager();
 
         System.out.println("Создание новых задач");
-        Task task = new Task(manager.generateId, "Утренняя зарядка", "Пробежка 3 км", "NEW");
+        Task task = new Task(manager.generateId, "Утренняя зарядка", "Пробежка 3 км", TaskStatus.NEW);
         System.out.println("Вернули id задачи: " + manager.addNewTask(task));
-        Task task1 = new Task(manager.generateId, "Позавтракать", "Сварить кашку", "NEW");
+        Task task1 = new Task(manager.generateId, "Позавтракать", "Сварить кашку", TaskStatus.NEW);
         System.out.println("Вернули id задачи: " + manager.addNewTask(task1));
         System.out.println(manager.getTasksList());
         System.out.println();
 
         System.out.println("Создание эпика с 2мя поздадачами");
-        Epic epic = new Epic(manager.generateId, "Собраться на работу", "Одеться", "NEW");
+        Epic epic = new Epic(manager.generateId, "Собраться на работу", "Одеться", TaskStatus.NEW);
         System.out.println("Вернули id эпика: " + manager.addNewEpic(epic));
         Subtask subtask = new Subtask(epic.getId(), manager.generateId, "Надеть брюки", "Синие брюки",
-                "NEW");
+                TaskStatus.NEW);
         System.out.println("Вернули id подзадачи: " + manager.addNewSubtask(subtask));
         Subtask subtask1 = new Subtask(epic.getId(), manager.generateId, "Надеть рубашку",
-                "Белая рубашка", "NEW");
+                "Белая рубашка", TaskStatus.NEW);
         System.out.println("Вернули id подзадачи: " + manager.addNewSubtask(subtask1));
         System.out.println(manager.getEpicById(3));
         System.out.println(manager.getSubtaskById(4));
@@ -33,10 +33,10 @@ public class Main {
         System.out.println();
 
         System.out.println("Создание эпика с 1 подзадачей");
-        Epic epic1 = new Epic(manager.generateId, "Сесть в трамвай", "Поездка на работу", "NEW");
+        Epic epic1 = new Epic(manager.generateId, "Сесть в трамвай", "Поездка на работу", TaskStatus.NEW);
         System.out.println("Вернули id эпика: " + manager.addNewEpic(epic1));
         Subtask subtask2 = new Subtask(epic1.getId(), manager.generateId, "Оплатить проезд",
-                "Купить билет", "NEW");
+                "Купить билет", TaskStatus.NEW);
         System.out.println("Вернули id подзадачи: " + manager.addNewSubtask(subtask2));
         System.out.println(manager.getEpicById(6));
         System.out.println(manager.getSubtaskById(7));
@@ -74,9 +74,9 @@ public class Main {
 
         System.out.println("Обновление подзадач эпика");
         Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
-                "Синие брюки", "DONE");
+                "Синие брюки", TaskStatus.DONE);
         Subtask subtask4 = new Subtask(epic.getId(), 5, "Надеть рубашку",
-                "Белая рубашка", "NEW");
+                "Белая рубашка", TaskStatus.DONE);
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask3));
         System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask4));
         System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));

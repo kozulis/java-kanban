@@ -1,5 +1,6 @@
 package ru.yandex.praktikum.service;
 
+import ru.yandex.praktikum.TaskStatus;
 import ru.yandex.praktikum.model.Epic;
 import ru.yandex.praktikum.model.Subtask;
 import ru.yandex.praktikum.model.Task;
@@ -219,14 +220,14 @@ public class Manager {
                 }
             }
             if (statusDone == epic.subtaskIds.size()) {
-                epic.setStatus("DONE");
+                epic.setStatus(TaskStatus.DONE);
             } else if (statusNew == epic.subtaskIds.size()) {
-                epic.setStatus("NEW");
+                epic.setStatus(TaskStatus.NEW);
             } else {
-                epic.setStatus("IN_PROGRESS");
+                epic.setStatus(TaskStatus.IN_PROGRESS);
             }
         } else {
-            epic.setStatus("NEW");
+            epic.setStatus(TaskStatus.NEW);
         }
 
     }
