@@ -6,7 +6,7 @@ public class Task {
     int id;
     String name;
     String description;
-    TaskStatus status;    //NEW, IN_PROGRESS, DONE
+    TaskStatus status;
     public Task(int id, String name, String description, TaskStatus status) {
         this.id = id;
         this.name = name;

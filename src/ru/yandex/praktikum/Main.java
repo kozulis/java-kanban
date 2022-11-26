@@ -51,8 +51,8 @@ public class Main {
 //        System.out.println();
 
 //        System.out.println("Обновление задачи");
-//        Task task3 = new Task(1, "Утренняя зарядка", "Пробежка 3 км", "DONE");
-//        Task task4 = new Task(2, "Позавтракать", "Сварить кашку", "DONE");
+//        Task task3 = new Task(1, "Утренняя зарядка", "Пробежка 3 км", TaskStatus.DONE);
+//        Task task4 = new Task(2, "Позавтракать", "Сварить кашку", TaskStatus.DONE);
 //        System.out.println("Вернули id задачи: " + manager.updateTask(task3));
 //        System.out.println("Вернули id задачи: " + manager.updateTask(task4));
 //        System.out.println(manager.getTasksList());
@@ -73,12 +73,15 @@ public class Main {
         System.out.println();
 
         System.out.println("Обновление подзадач эпика");
-        Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
+        /*Subtask subtask3 = new Subtask(epic.getId(), 4, "Надеть брюки",
                 "Синие брюки", TaskStatus.DONE);
         Subtask subtask4 = new Subtask(epic.getId(), 5, "Надеть рубашку",
-                "Белая рубашка", TaskStatus.DONE);
-        System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask3));
-        System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask4));
+                "Белая рубашка", TaskStatus.DONE);*/
+        subtask.setStatus(TaskStatus.DONE);
+        subtask1.setStatus(TaskStatus.DONE);
+        System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask));
+        System.out.println("Вернули id подзадачи: " + manager.updateSubtask(subtask1));
+        System.out.println("Получение списка подзадач определенного эпика");
         System.out.println(manager.getSubtaskListByEpic(manager.getEpicById(3)));
         System.out.println();
 
