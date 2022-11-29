@@ -1,7 +1,5 @@
 package ru.yandex.praktikum.model;
 
-import ru.yandex.praktikum.TaskStatus;
-
 public class Task {
     int id;
     String name;

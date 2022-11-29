@@ -1,7 +1,5 @@
 package ru.yandex.praktikum.model;
 
-import ru.yandex.praktikum.TaskStatus;
-
 import java.util.ArrayList;
 
 public class Epic extends Task{

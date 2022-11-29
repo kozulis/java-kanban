@@ -1,6 +1,6 @@
 package ru.yandex.praktikum.service;
 
-import ru.yandex.praktikum.TaskStatus;
+import ru.yandex.praktikum.model.TaskStatus;
 import ru.yandex.praktikum.model.Epic;
 import ru.yandex.praktikum.model.Subtask;
 import ru.yandex.praktikum.model.Task;

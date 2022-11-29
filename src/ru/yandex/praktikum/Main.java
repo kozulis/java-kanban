@@ -3,6 +3,7 @@ package ru.yandex.praktikum;
 import ru.yandex.praktikum.model.Epic;
 import ru.yandex.praktikum.model.Subtask;
 import ru.yandex.praktikum.model.Task;
+import ru.yandex.praktikum.model.TaskStatus;
 import ru.yandex.praktikum.service.Manager;
 
 public class Main {
@@ -33,7 +34,8 @@ public class Main {
         System.out.println();
 
         System.out.println("Создание эпика с 1 подзадачей");
-        Epic epic1 = new Epic(manager.generateId, "Сесть в трамвай", "Поездка на работу", TaskStatus.NEW);
+        Epic epic1 = new Epic(manager.generateId, "Сесть в трамвай", "Поездка на работу",
+                TaskStatus.NEW);
         System.out.println("Вернули id эпика: " + manager.addNewEpic(epic1));
         Subtask subtask2 = new Subtask(epic1.getId(), manager.generateId, "Оплатить проезд",
                 "Купить билет", TaskStatus.NEW);
