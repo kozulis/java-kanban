@@ -7,19 +7,28 @@ import ru.yandex.praktikum.model.Task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class Manager {
+public class InMemoryTaskManager implements TaskManager {
     public int generateId = 1;
 
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, Epic> epics = new HashMap<>();
     HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
+    HistoryManager historyManager = Managers.getDefaultHistory();
+
+    @Override
+    public List<Task> getHistory() {
+        return historyManager.getHistory();
+    }
+
     // Методы для Task
     /**
      * получение списка задач
      * @return список задач
      */
+    @Override
     public ArrayList<Task> getTasksList() {
         return new ArrayList<>(tasks.values());
     }
@@ -27,21 +36,28 @@ public class Manager {
     /**
      * удаление всех задач
      */
+    @Override
     public void cleanAllTasks() {
         tasks.clear();
     }
 
     /**
      * получение задачи по id
+     * @param id
+     * @return id задачи
      */
-    public Task getTaskById (Integer id) {
+    @Override
+    public Task getTaskById (int id) {
+        historyManager.add(tasks.get(id));
         return tasks.get(id);
     }
 
     /**
      * Создание новой задачи
+     * @param task
      * @return номер id задачи
      */
+    @Override
     public int addNewTask(Task task) {
         task.setId(generateId);
         tasks.put(task.getId(), task);
@@ -51,8 +67,8 @@ public class Manager {
 
     /**
      * обновление задачи
-     * @return номер id задачи
      */
+    @Override
     public void updateTask(Task task) {
         tasks.put(task.getId(), task);
     }
@@ -60,6 +76,7 @@ public class Manager {
     /**
      * удаление задачи по id
      */
+    @Override
     public void removeTaskById(Integer id) {
         tasks.remove(id);
     }
@@ -70,6 +87,7 @@ public class Manager {
      * получение списка подзадач
      * @return список подзадач
      */
+    @Override
     public ArrayList<Subtask> getSubtasksList() {
         return new ArrayList<>(subtasks.values());
     }
@@ -77,6 +95,7 @@ public class Manager {
     /**
      * удаление всех подзадач
      */
+    @Override
     public void cleanAllSubtasks() {
         subtasks.clear();
         for (Integer key : epics.keySet()) {
@@ -87,20 +106,25 @@ public class Manager {
 
     /**
      * получение подзадачи по id
+     * @param id
+     * @return подзачача
      */
-    public Subtask getSubtaskById(Integer id) {
+    @Override
+    public Subtask getSubtaskById(int id) {
+        historyManager.add(subtasks.get(id));
         return subtasks.get(id);
     }
 
     /**
      * создание новой подзадачи и добавление ее id в список эпика
-     *
+     * @param subtask
      * @return id подзадачи
      */
+    @Override
     public int addNewSubtask(Subtask subtask) {
         subtask.setId(generateId);
         subtasks.put(subtask.getId(), subtask);
-        getEpicById(subtask.getEpicId()).addSubtaskId(subtask.getId());
+        epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
         changeEpicStatus(subtask.getEpicId());
         generateId++;
         return subtask.getId();
@@ -108,9 +132,10 @@ public class Manager {
 
     /**
      * обновление подзадачи
-     *
+     * @param subtask
      * @return id подзадачи
      */
+    @Override
     public int updateSubtask(Subtask subtask) {
         subtasks.put(subtask.getId(), subtask);
         changeEpicStatus(subtask.getEpicId());
@@ -120,15 +145,17 @@ public class Manager {
     /**
      * удаление подзадачи по id из мапы и из списка задач эпика
      */
-    public void removeSubtaskById(Integer id) {
-        getEpicById(getSubtaskById(id).getEpicId()).removeSubtaskById(id);
-        changeEpicStatus(getSubtaskById(id).getEpicId());
+    @Override
+    public void removeSubtaskById(int id) {
+        epics.get(subtasks.get(id).getEpicId()).removeSubtaskById(id);
+        changeEpicStatus(subtasks.get(id).getEpicId());
         subtasks.remove(id);
     }
 
     /**
      * удаление всех подзадач определенного эпика
      */
+    @Override
     public void cleanAllSubtasksByEpic(Epic epic) {
         for (Integer id : epic.subtaskIds) {
             subtasks.remove(id);
@@ -141,10 +168,11 @@ public class Manager {
      * получение списка подзадач определенного эпика
      * @return список задач
      */
+    @Override
     public ArrayList<Subtask> getSubtaskListByEpic(Epic epic) {
         ArrayList<Subtask> subtaskListByEpic = new ArrayList<>();
         for (Integer id : epic.subtaskIds) {
-            subtaskListByEpic.add(getSubtaskById(id));
+            subtaskListByEpic.add(subtasks.get(id));
         }
         return subtaskListByEpic;
     }
@@ -155,6 +183,7 @@ public class Manager {
      * получение списка эпиков
      * @return список эпиков
      */
+    @Override
     public ArrayList<Epic> getEpicsList() {
         return new ArrayList<>(epics.values());
     }
@@ -162,6 +191,7 @@ public class Manager {
     /**
      * удаление всех эпиков и удаление всех подзадач из мапы подзадач
      */
+    @Override
     public void cleanAllEpics() {
         epics.clear();
         subtasks.clear();
@@ -169,16 +199,21 @@ public class Manager {
 
     /**
      * получение эпика по id
+     * @param id
+     * @return id эпика
      */
-    public Epic getEpicById (Integer id) {
+    @Override
+    public Epic getEpicById (int id) {
+        historyManager.add(epics.get(id));
         return epics.get(id);
     }
 
     /**
      * создание эпика
-     *
-     * @return id  эпика
+     * @param epic
+     * @return id эпика
      */
+    @Override
     public int addNewEpic(Epic epic) {
         epic.setId(generateId);
         epics.put(epic.getId(), epic);
@@ -188,7 +223,10 @@ public class Manager {
 
     /**
      * обновление эпика
+     * @param epic
+     * @return id эпика
      */
+    @Override
     public int updateEpic(Epic epic) {
         epics.put(epic.getId(), epic);
         return epic.getId();
@@ -197,8 +235,9 @@ public class Manager {
     /**
      * удаление эпика по id и удаление его подзадач из мапы подзадач
      */
-    public void removeEpicById(Integer id) {
-        for (Integer idSub : getEpicById(id).subtaskIds) {
+    @Override
+    public void removeEpicById(int id) {
+        for (Integer idSub : epics.get(id).subtaskIds) {
             subtasks.remove(idSub);
         }
         epics.remove(id);
@@ -207,10 +246,10 @@ public class Manager {
     /**
      * Изменение статуса эпика в зависимости от статусов подзадач
      */
-    private void changeEpicStatus(int epicId) {
+    public void changeEpicStatus(int epicId) {
         int statusNew = 0;
         int statusDone = 0;
-        Epic epic = getEpicById(epicId);
+        Epic epic = epics.get(epicId);
         if (!epic.subtaskIds.isEmpty()) {
             for (Integer id : epic.getSubtaskIds()) {
                 if (subtasks.get(id).getStatus().equals(TaskStatus.NEW)) {
@@ -229,6 +268,5 @@ public class Manager {
         } else {
             epic.setStatus(TaskStatus.NEW);
         }
-
     }
 }
