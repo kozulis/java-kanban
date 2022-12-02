@@ -33,7 +33,7 @@ public interface TaskManager {
 
     int addNewSubtask(Subtask subtask);
 
-    int updateSubtask(Subtask subtask);
+    void updateSubtask(Subtask subtask);
 
     void removeSubtaskById(int id);
 
@@ -50,7 +50,7 @@ public interface TaskManager {
 
     int addNewEpic(Epic epic);
 
-    int updateEpic(Epic epic);
+    void updateEpic(Epic epic);
 
     void removeEpicById(int id);
 
