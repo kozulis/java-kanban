@@ -118,16 +118,16 @@ public class Main {
         System.out.println(taskManager.getSubtasksList());
         System.out.println();
 
-//        System.out.println("Обновление подзадач эпика");
-//        subtask.setStatus(TaskStatus.DONE);
-//        subtask1.setStatus(TaskStatus.DONE);
-//        System.out.println("Обновили подзадачу: " + subtask.getId());
-//        taskManager.updateSubtask(subtask);
-//        System.out.println("Обновили подзадачу: " + subtask1.getId());
-//        taskManager.updateSubtask(subtask1);
-//        System.out.println("Получение списка подзадач определенного эпика");
-//        System.out.println(taskManager.getSubtaskListByEpic(taskManager.getEpicById(3)));
-//        System.out.println();
+        System.out.println("Обновление подзадач эпика");
+        subtask.setStatus(TaskStatus.DONE);
+        subtask1.setStatus(TaskStatus.DONE);
+        System.out.println("Обновили подзадачу: " + subtask.getId());
+        taskManager.updateSubtask(subtask);
+        System.out.println("Обновили подзадачу: " + subtask1.getId());
+        taskManager.updateSubtask(subtask1);
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(taskManager.getSubtaskListByEpic(taskManager.getEpicById(3)));
+        System.out.println();
 
         System.out.println("Получение списка всех эпиков");
         System.out.println(taskManager.getEpicsList());

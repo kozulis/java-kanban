@@ -1,10 +1,10 @@
 package ru.yandex.praktikum.model;
 
 public class Task {
-    int id;
-    String name;
-    String description;
-    TaskStatus status;
+    protected int id;
+    protected String name;
+    protected String description;
+    protected TaskStatus status;
     public Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;

@@ -3,7 +3,7 @@ package ru.yandex.praktikum.model;
 import java.util.ArrayList;
 
 public class Epic extends Task{
-    public ArrayList<Integer> subtaskIds = new ArrayList<>();
+    private final ArrayList<Integer> subtaskIds = new ArrayList<>();
 
     public Epic(String name, String description, TaskStatus status) {
         super(name, description, status);

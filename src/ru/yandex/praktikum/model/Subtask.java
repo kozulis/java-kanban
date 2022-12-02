@@ -1,7 +1,7 @@
 package ru.yandex.praktikum.model;
 
 public class Subtask extends Task{
-    int epicId;
+    private int epicId;
     public Subtask(int epicId, String name, String description, TaskStatus status) {
         super(name, description, status);
         this.epicId = epicId;
