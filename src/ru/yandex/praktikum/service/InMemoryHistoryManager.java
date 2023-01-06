@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedList;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
@@ -58,18 +59,21 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     void removeNode(Node node) { //удаление ноды, замена ссылок
-        if (node != null) {
-            if (node.prev != null && node.next != null) {
-                node.prev.next = node.next;
-                node.next.prev = node.prev;
-            } else if (node.prev == null) {
-                head = node.next;
-                head.prev = null;
-            } else {
-                tail = node.prev;
-                tail.next = null;
-            }
+        Node nextNode = node.next;
+        Node prevNode = node.prev;
+        if (prevNode == null) {
+            head = nextNode;
+        } else {
+            prevNode.next = nextNode;
+            node.prev = null;
         }
+        if (nextNode == null) {
+            tail = prevNode;
+        } else {
+            nextNode.prev = prevNode;
+            node.next = null;
+        }
+        node.task = null;
     }
 
     static class Node {
@@ -77,12 +81,10 @@ public class InMemoryHistoryManager implements HistoryManager {
         public Task task;
         public Node next;
 
-
         public Node(Node prev, Task task, Node next) {
             this.prev = prev;
             this.task = task;
             this.next = next;
-
         }
     }
 }
