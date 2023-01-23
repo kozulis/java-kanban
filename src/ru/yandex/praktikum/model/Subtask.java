@@ -1,14 +1,20 @@
 package ru.yandex.praktikum.model;
 
 public class Subtask extends Task{
+    protected TaskType taskType = TaskType.SUBTASK;
     private int epicId;
     public Subtask(int epicId, String name, String description, TaskStatus status) {
         super(name, description, status);
         this.epicId = epicId;
     }
-
-    public int getEpicId() {
+    @Override
+    public Integer getEpicId() {
         return epicId;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     public void setEpicId(int epicId) {
@@ -18,11 +24,12 @@ public class Subtask extends Task{
     @Override
     public String toString() {
         return "Subtask{" +
-                "epicId=" + epicId +
-                ", id=" + id +
+                "id=" + id +
+                ", taskType=" + taskType +
                 ", name='" + name + '\'' +
+                ", status=" + status +
                 ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
+                ", epicId=" + epicId +
                 '}';
     }
 }

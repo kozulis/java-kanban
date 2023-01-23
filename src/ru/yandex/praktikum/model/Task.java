@@ -2,9 +2,10 @@ package ru.yandex.praktikum.model;
 
 public class Task {
     protected int id;
+    protected TaskType taskType = TaskType.TASK;
     protected String name;
-    protected String description;
     protected TaskStatus status;
+    protected String description;
     public Task(String name, String description, TaskStatus status) {
         this.name = name;
         this.description = description;
@@ -43,13 +44,28 @@ public class Task {
         this.status = status;
     }
 
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
+    public Integer getEpicId() {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
                 "id=" + id +
+                ", taskType=" + taskType +
                 ", name='" + name + '\'' +
+                ", status=" + status +
                 ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
                 '}';
     }
+
+
 }

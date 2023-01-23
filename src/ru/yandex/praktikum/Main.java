@@ -85,30 +85,42 @@ public class Main {
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
-        System.out.println("удаление задачи 2");
-        taskManager.removeTaskById(2);
+        System.out.println("Получение списка всех задач");
         System.out.println(taskManager.getTasksList());
         System.out.println();
 
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-        System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println("Получение списка всех эпиков");
+        System.out.println(taskManager.getEpicsList());
         System.out.println();
 
-        System.out.println("удаление эпика с 3 подзадачами");
-        taskManager.removeEpicById(3);
-
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-        System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(taskManager.getSubtasksList());
         System.out.println();
 
+//        System.out.println("удаление задачи 2");
+//        taskManager.removeTaskById(2);
+//        System.out.println(taskManager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
+//
+//        System.out.println("удаление эпика без подзадачи");
+//        taskManager.removeEpicById(7);
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
+//
 //        taskManager.removeTaskById(1);
 //        taskManager.removeTaskById(2);
 //
 //        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
 //        System.out.println("Размер списка: " + taskManager.getHistory().size());
 //        System.out.println();
-
-
+//
+//
 //        System.out.println("Получение списка всех задач");
 //        System.out.println(taskManager.getTasksList());
 //        System.out.println();
@@ -120,44 +132,33 @@ public class Main {
 //        System.out.println("Получение списка всех подзадач");
 //        System.out.println(taskManager.getSubtasksList());
 //        System.out.println();
-
-        System.out.println("удаление эпика без подзадач");
-        taskManager.removeEpicById(7);
-
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-        System.out.println("Размер списка: " + taskManager.getHistory().size());
-        System.out.println();
-
-        System.out.println("Получение списка всех задач");
-        System.out.println(taskManager.getTasksList());
-        System.out.println();
-
-        System.out.println("Получение списка всех эпиков");
-        System.out.println(taskManager.getEpicsList());
-        System.out.println();
-
-        System.out.println("Получение списка всех подзадач");
-        System.out.println(taskManager.getSubtasksList());
-        System.out.println();
-
-        System.out.println("удаление задачи 1");
-        taskManager.removeTaskById(1);
-
-        System.out.println("Получение списка всех задач");
-        System.out.println(taskManager.getTasksList());
-        System.out.println();
-
-        System.out.println("Получение списка всех эпиков");
-        System.out.println(taskManager.getEpicsList());
-        System.out.println();
-
-        System.out.println("Получение списка всех подзадач");
-        System.out.println(taskManager.getSubtasksList());
-        System.out.println();
-
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-        System.out.println("Размер списка: " + taskManager.getHistory().size());
-        System.out.println();
+//
+//        System.out.println("удаление эпика без подзадач");
+//        taskManager.removeEpicById(7);
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
+//
+//        System.out.println("Получение списка всех задач");
+//        System.out.println(taskManager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Получение списка всех эпиков");
+//        System.out.println(taskManager.getEpicsList());
+//        System.out.println();
+//
+//        System.out.println("Получение списка всех подзадач");
+//        System.out.println(taskManager.getSubtasksList());
+//        System.out.println();
+//
+//        System.out.println("удаление задачи 1");
+//        taskManager.removeTaskById(1);
+//
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
 //
 //        System.out.println("Обновление задач");
 //        task.setStatus(TaskStatus.DONE);
@@ -167,7 +168,7 @@ public class Main {
 //        System.out.println("Обновили задачу: " + task1.getId());
 //        taskManager.updateTask(task1);
 //        System.out.println();
-
+//
 //        System.out.println("Обновление подзадач эпика");
 //        subtask.setStatus(TaskStatus.DONE);
 //        subtask1.setStatus(TaskStatus.DONE);
@@ -178,10 +179,10 @@ public class Main {
 //        System.out.println("Получение списка подзадач определенного эпика");
 //        System.out.println(taskManager.getSubtaskListByEpic(taskManager.getEpicById(3)));
 //        System.out.println();
-
+//
 //        System.out.println("Удаление задачи по id");
 //        taskManager.removeTaskById(2);
-
+//
 //        System.out.println("Удаление списка всех задач");
 //        taskManager.cleanAllTasks();
 //        System.out.println(taskManager.getTasksList());
@@ -190,26 +191,30 @@ public class Main {
 //        System.out.println("Удаление задач");
 //        taskManager.cleanAllTasks();
 //        System.out.println();
-
+//
 //        System.out.println("удаление подзадачи");
 //        taskManager.removeSubtaskById(4);
-
+//
 //        System.out.println("Удаление всех подзадач");
 //        taskManager.cleanAllSubtasks();
 //        System.out.println();
-
+//
 //        System.out.println("Удаление эпика по id и его подзадач в из мапы");
 //        taskManager.removeEpicById(3);
 //        System.out.println(taskManager.getEpicsList());
-
+//
 //        System.out.println("Удаление всех эпиков и проверка списка эпиков");
 //        taskManager.cleanAllEpics();
 //        System.out.println(taskManager.getEpicsList());
-
+//
 //        System.out.println("Проверка изменения статуса эпика в зависимости от статусов подзадач");
 //        System.out.println(taskManager.getEpicById(3));
 //        System.out.println();
-
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
+//
 //        System.out.println("Получение списка подзадач определенного эпика");
 //        System.out.println(taskManager.getSubtaskListByEpic(taskManager.getEpicById(3)));
 //        System.out.println();
@@ -217,7 +222,7 @@ public class Main {
 //        System.out.println("Очистка списка подзадач определенного эпика");
 //        taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
 //        System.out.println();
-
+//
 //        System.out.println("Получение списка по id");
 //        System.out.println(taskManager.getTaskById(2));
 

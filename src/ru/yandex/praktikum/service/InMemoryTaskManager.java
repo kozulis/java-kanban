@@ -1,9 +1,9 @@
 package ru.yandex.praktikum.service;
 
-import ru.yandex.praktikum.model.TaskStatus;
 import ru.yandex.praktikum.model.Epic;
 import ru.yandex.praktikum.model.Subtask;
 import ru.yandex.praktikum.model.Task;
+import ru.yandex.praktikum.model.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +11,11 @@ import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    private int generateId = 1;
+    protected int generateId = 1;
 
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    protected final HashMap<Integer, Task> tasks = new HashMap<>();
+    protected final HashMap<Integer, Epic> epics = new HashMap<>();
+    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
     HistoryManager historyManager = Managers.getDefaultHistory();
 
