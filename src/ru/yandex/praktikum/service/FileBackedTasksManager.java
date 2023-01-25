@@ -15,101 +15,101 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     public static void main(String[] args) {
-//        TaskManager taskManager = new FileBackedTasksManager(new File("resources/historyData.csv"));
-//        System.out.println("Создание новых задач");
-//        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", TaskStatus.NEW);
-//        taskManager.addNewTask(task);
-//        Task task1 = new Task("Позавтракать", "Сварить кашку",TaskStatus.NEW);
-//        taskManager.addNewTask(task1);
-//        System.out.println(taskManager.getTasksList());
-//        System.out.println();
-//
-//        System.out.println("Создание эпика с 3мя поздадачами");
-//        Epic epic = new Epic("Собраться на работу", "Одеться",TaskStatus.NEW);
-//        taskManager.addNewEpic(epic);
-//        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки", TaskStatus.NEW);
-//        taskManager.addNewSubtask(subtask);
-//        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка", TaskStatus.NEW);
-//        taskManager.addNewSubtask(subtask1);
-//        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек", TaskStatus.NEW);
-//        taskManager.addNewSubtask(subtask2);
-//        System.out.println(epic);
-//        System.out.println(subtask);
-//        System.out.println(subtask1);
-//        System.out.println(subtask2);
-//        System.out.println();
-//
-//        System.out.println("Создание эпика без подзадач");
-//        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", TaskStatus.NEW);
-//        taskManager.addNewEpic(epic1);
-//        System.out.println(epic1);
-//        System.out.println();
-//
-//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-//        System.out.println("Размер списка: " + taskManager.getHistory().size());
-//        System.out.println();
-//
-//        System.out.println("Получение задачи по id");
-//        System.out.println(taskManager.getTaskById(1));
-//        System.out.println();
-//
-//        System.out.println("Получение задачи по id");
-//        System.out.println(taskManager.getTaskById(2));
-//        System.out.println();
-//
-//        System.out.println("Получение подзадачи по id");
-//        System.out.println(taskManager.getSubtaskById(4));
-//        System.out.println();
-//
-//        System.out.println("Получение подзадачи по id");
-//        System.out.println(taskManager.getSubtaskById(5));
-//        System.out.println();
-//
-//        System.out.println("Получение эпика по id");
-//        System.out.println(taskManager.getEpicById(3));
-//        System.out.println();
-//
-//        System.out.println("Получение эпика по id");
-//        System.out.println(taskManager.getEpicById(7));
-//        System.out.println();
-//
-//        System.out.println("Получение подзадачи по id");
-//        System.out.println(taskManager.getSubtaskById(6));
-//        System.out.println();
-//
-//        System.out.println("Получение подзадачи по id");
-//        System.out.println(taskManager.getSubtaskById(5));
-//        System.out.println();
-//
-//        System.out.println("Получение подзадачи по id");
-//        System.out.println(taskManager.getSubtaskById(5));
-//        System.out.println();
-//
-//
-//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-//        System.out.println("Размер списка: " + taskManager.getHistory().size());
-//        System.out.println();
+        TaskManager taskManager = new FileBackedTasksManager(new File("resources/historyData.csv"));
+        System.out.println("Создание новых задач");
+        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", TaskStatus.NEW);
+        taskManager.addNewTask(task);
+        Task task1 = new Task("Позавтракать", "Сварить кашку",TaskStatus.NEW);
+        taskManager.addNewTask(task1);
+        System.out.println(taskManager.getTasksList());
+        System.out.println();
+
+        System.out.println("Создание эпика с 3мя поздадачами");
+        Epic epic = new Epic("Собраться на работу", "Одеться",TaskStatus.NEW);
+        taskManager.addNewEpic(epic);
+        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки", TaskStatus.NEW);
+        taskManager.addNewSubtask(subtask);
+        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка", TaskStatus.NEW);
+        taskManager.addNewSubtask(subtask1);
+        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек", TaskStatus.NEW);
+        taskManager.addNewSubtask(subtask2);
+        System.out.println(epic);
+        System.out.println(subtask);
+        System.out.println(subtask1);
+        System.out.println(subtask2);
+        System.out.println();
+
+        System.out.println("Создание эпика без подзадач");
+        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", TaskStatus.NEW);
+        taskManager.addNewEpic(epic1);
+        System.out.println(epic1);
+        System.out.println();
+
+        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+        System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println();
+
+        System.out.println("Получение задачи по id");
+        System.out.println(taskManager.getTaskById(1));
+        System.out.println();
+
+        System.out.println("Получение задачи по id");
+        System.out.println(taskManager.getTaskById(2));
+        System.out.println();
+
+        System.out.println("Получение подзадачи по id");
+        System.out.println(taskManager.getSubtaskById(4));
+        System.out.println();
+
+        System.out.println("Получение подзадачи по id");
+        System.out.println(taskManager.getSubtaskById(5));
+        System.out.println();
+
+        System.out.println("Получение эпика по id");
+        System.out.println(taskManager.getEpicById(3));
+        System.out.println();
+
+        System.out.println("Получение эпика по id");
+        System.out.println(taskManager.getEpicById(7));
+        System.out.println();
+
+        System.out.println("Получение подзадачи по id");
+        System.out.println(taskManager.getSubtaskById(6));
+        System.out.println();
+
+        System.out.println("Получение подзадачи по id");
+        System.out.println(taskManager.getSubtaskById(5));
+        System.out.println();
+
+        System.out.println("Получение подзадачи по id");
+        System.out.println(taskManager.getSubtaskById(5));
+        System.out.println();
 
 
-//        System.out.println("Проверка восстановления менеджера из файла\n");
-//        FileBackedTasksManager loadTasksManager =
-//                FileBackedTasksManager.loadFromFile(new File("resources/historyData.csv"));
-//
-//        System.out.println("Получение списка всех задач");
-//        System.out.println(loadTasksManager.getTasksList());
-//        System.out.println();
-//
-//        System.out.println("Получение списка всех эпиков");
-//        System.out.println(loadTasksManager.getEpicsList());
-//        System.out.println();
-//
-//        System.out.println("Получение списка всех подзадач");
-//        System.out.println(loadTasksManager.getSubtasksList());
-//        System.out.println();
-//
-//        System.out.println("Проверка записи в историю : \n" + loadTasksManager.getHistory());
-//        System.out.println("Размер списка: " + loadTasksManager.getHistory().size());
-//        System.out.println();
+        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+        System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println();
+
+
+        System.out.println("Проверка восстановления менеджера из файла\n");
+        FileBackedTasksManager loadTasksManager =
+                FileBackedTasksManager.loadFromFile(new File("resources/historyData.csv"));
+
+        System.out.println("Получение списка всех задач");
+        System.out.println(loadTasksManager.getTasksList());
+        System.out.println();
+
+        System.out.println("Получение списка всех эпиков");
+        System.out.println(loadTasksManager.getEpicsList());
+        System.out.println();
+
+        System.out.println("Получение списка всех подзадач");
+        System.out.println(loadTasksManager.getSubtasksList());
+        System.out.println();
+
+        System.out.println("Проверка записи в историю : \n" + loadTasksManager.getHistory());
+        System.out.println("Размер списка: " + loadTasksManager.getHistory().size());
+        System.out.println();
 
     }
 
@@ -140,7 +140,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      * @param task задача
      * @return строка
      */
-    public String taskToString(Task task) {    //// сделал один метод для всех тасков ????
+    public String taskToString(Task task) {
             return task.toCSVForm();
     }
 
