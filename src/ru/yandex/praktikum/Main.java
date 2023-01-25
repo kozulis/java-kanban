@@ -1,16 +1,18 @@
 package ru.yandex.praktikum;
 
-import ru.yandex.praktikum.model.Epic;
-import ru.yandex.praktikum.model.Subtask;
-import ru.yandex.praktikum.model.Task;
-import ru.yandex.praktikum.model.TaskStatus;
+import ru.yandex.praktikum.model.*;
+import ru.yandex.praktikum.service.FileBackedTasksManager;
 import ru.yandex.praktikum.service.Managers;
 import ru.yandex.praktikum.service.TaskManager;
+
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) {
-        TaskManager taskManager = Managers.getDefault();
+        TaskManager taskManager = Managers.getFileBackedTasksManager(); /* Антон, я правильно понял замечание?*/
+//        TaskManager taskManager = new FileBackedTasksManager(new File("resources/historyData.csv"));
+//        TaskManager taskManager = Managers.getDefault();
 
         System.out.println("Создание новых задач");
         Task task = new Task("Утренняя зарядка", "Пробежка 3 км", TaskStatus.NEW);
@@ -96,6 +98,31 @@ public class Main {
         System.out.println("Получение списка всех подзадач");
         System.out.println(taskManager.getSubtasksList());
         System.out.println();
+
+        System.out.println(taskManager.getSubtaskListByEpic(epic));
+
+
+
+
+//        System.out.println("Проверка восстановления менеджера из файла\n");
+//        TaskManager loadTasksManager =
+//                FileBackedTasksManager.loadFromFile(new File("resources/historyData.csv"));
+//
+//        System.out.println("Получение списка всех задач");
+//        System.out.println(loadTasksManager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Получение списка всех эпиков");
+//        System.out.println(loadTasksManager.getEpicsList());
+//        System.out.println();
+//
+//        System.out.println("Получение списка всех подзадач");
+//        System.out.println(loadTasksManager.getSubtasksList());
+//        System.out.println();
+//
+//        System.out.println("Проверка записи в историю : \n" + loadTasksManager.getHistory());
+//        System.out.println("Размер списка: " + loadTasksManager.getHistory().size());
+//        System.out.println();
 
 //        System.out.println("удаление задачи 2");
 //        taskManager.removeTaskById(2);

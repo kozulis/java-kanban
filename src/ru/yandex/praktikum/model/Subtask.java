@@ -6,8 +6,15 @@ public class Subtask extends Task{
     public Subtask(int epicId, String name, String description, TaskStatus status) {
         super(name, description, status);
         this.epicId = epicId;
+        setTaskType(TaskType.SUBTASK);
     }
-    @Override
+
+    public Subtask(int id, int epicId, String name, String description, TaskStatus status) {
+        super(id, name, description, status);
+        this.epicId = epicId;
+        setTaskType(TaskType.SUBTASK);
+    }
+
     public Integer getEpicId() {
         return epicId;
     }
@@ -19,6 +26,12 @@ public class Subtask extends Task{
 
     public void setEpicId(int epicId) {
         this.epicId = epicId;
+    }
+
+    @Override
+    public String toCSVForm() {
+        return String.format("%d,%s,%s,%s,%s,%d", id, taskType, name, status,
+                description, epicId);
     }
 
     @Override
