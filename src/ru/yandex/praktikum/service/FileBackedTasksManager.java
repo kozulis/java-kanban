@@ -157,7 +157,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             String name = split[2];
             TaskStatus status = TaskStatus.valueOf(split[3]);
             String description = split[4];
-//            int epicId = Integer.parseInt(split[5]);
 
             switch (type) {
                 case TASK: {

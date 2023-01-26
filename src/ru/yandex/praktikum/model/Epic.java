@@ -3,17 +3,15 @@ package ru.yandex.praktikum.model;
 import java.util.ArrayList;
 
 public class Epic extends Task{
-//    protected TaskType taskType = TaskType.EPIC;
+    protected TaskType taskType = TaskType.EPIC;
     private final ArrayList<Integer> subtaskIds = new ArrayList<>();
 
     public Epic(String name, String description, TaskStatus status) {
         super(name, description, status);
-        setTaskType(TaskType.EPIC);
     }
 
     public Epic(int id, String name, String description, TaskStatus status) {
         super(id, name, description, status);
-        setTaskType(TaskType.EPIC);
     }
 
     public ArrayList<Integer> getSubtaskIds() {
@@ -22,7 +20,7 @@ public class Epic extends Task{
 
     @Override
     public TaskType getTaskType() {
-        return taskType;
+        return TaskType.EPIC;
     }
 
     /**
@@ -48,7 +46,8 @@ public class Epic extends Task{
 
     @Override
     public String toCSVForm() {
-        return super.toCSVForm();
+        return String.format("%d,%s,%s,%s,%s,", id, taskType, name, status,
+                description);
     }
 
     @Override

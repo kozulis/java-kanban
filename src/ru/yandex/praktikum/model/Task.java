@@ -53,11 +53,7 @@ public class Task {
     }
 
     public TaskType getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
+        return TaskType.TASK;
     }
 
     public String toCSVForm() {
