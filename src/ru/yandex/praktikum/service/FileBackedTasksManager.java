@@ -17,21 +17,21 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public static void main(String[] args) {
         TaskManager taskManager = new FileBackedTasksManager(new File("resources/historyData.csv"));
         System.out.println("Создание новых задач");
-        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", TaskStatus.NEW);
+        Task task = new Task("Утренняя зарядка", "Пробежка 3 км");
         taskManager.addNewTask(task);
-        Task task1 = new Task("Позавтракать", "Сварить кашку",TaskStatus.NEW);
+        Task task1 = new Task("Позавтракать", "Сварить кашку");
         taskManager.addNewTask(task1);
         System.out.println(taskManager.getTasksList());
         System.out.println();
 
         System.out.println("Создание эпика с 3мя поздадачами");
-        Epic epic = new Epic("Собраться на работу", "Одеться",TaskStatus.NEW);
+        Epic epic = new Epic("Собраться на работу", "Одеться");
         taskManager.addNewEpic(epic);
-        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки", TaskStatus.NEW);
+        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки");
         taskManager.addNewSubtask(subtask);
-        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка", TaskStatus.NEW);
+        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка");
         taskManager.addNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек", TaskStatus.NEW);
+        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек");
         taskManager.addNewSubtask(subtask2);
         System.out.println(epic);
         System.out.println(subtask);
@@ -40,7 +40,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println();
 
         System.out.println("Создание эпика без подзадач");
-        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", TaskStatus.NEW);
+        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
         taskManager.addNewEpic(epic1);
         System.out.println(epic1);
         System.out.println();

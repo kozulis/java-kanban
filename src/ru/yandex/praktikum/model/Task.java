@@ -1,5 +1,7 @@
 package ru.yandex.praktikum.model;
 
+import java.util.Objects;
+
 public class Task {
     protected int id;
     protected TaskType taskType = TaskType.TASK;
@@ -18,6 +20,11 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = status;
+    }
+
+    public Task(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public int getId() {
@@ -56,6 +63,10 @@ public class Task {
         return TaskType.TASK;
     }
 
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
+    }
+
     public String toCSVForm() {
         return String.format("%d,%s,%s,%s,%s,", id, taskType, name, status,
                 description);
@@ -72,5 +83,16 @@ public class Task {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && taskType == task.taskType && Objects.equals(name, task.name) && Objects.equals(description, task.description);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, taskType, name, description);
+    }
 }
