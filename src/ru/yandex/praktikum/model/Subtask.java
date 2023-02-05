@@ -1,10 +1,19 @@
 package ru.yandex.praktikum.model;
 
+import java.time.LocalDateTime;
+
 public class Subtask extends Task{
     protected TaskType taskType = TaskType.SUBTASK;
     private int epicId;
-    public Subtask(int epicId, String name, String description, TaskStatus status) {
-        super(name, description, status);
+
+    public Subtask(int id, String name, String description, TaskStatus status, long duration, LocalDateTime startTime, int epicId) {
+        super(id, name, description, status, duration, startTime);
+        this.epicId = epicId;
+        setTaskType(TaskType.SUBTASK);
+    }
+
+    public Subtask(int epicId, String name, String description, long duration, LocalDateTime startTime) {
+        super(name, description, duration, startTime);
         this.epicId = epicId;
         setTaskType(TaskType.SUBTASK);
     }
@@ -36,8 +45,8 @@ public class Subtask extends Task{
 
     @Override
     public String toCSVForm() {
-        return String.format("%d,%s,%s,%s,%s,%d", id, taskType, name, status,
-                description, epicId);
+        return String.format("%d,%s,%s,%s,%s,%s,%s,%d", id, taskType, name, status,
+                description, duration, startTime, epicId);
     }
 
     @Override
@@ -48,6 +57,9 @@ public class Subtask extends Task{
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
+                ", duration=" + duration +
+                ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
+                ", endTime=" + (getEndTime() == null ? null : getEndTime().format(formatter)) +
                 ", epicId=" + epicId +
                 '}';
     }

@@ -1,5 +1,7 @@
 package ru.yandex.praktikum.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Task {
@@ -8,11 +10,24 @@ public class Task {
     protected String name;
     protected TaskStatus status;
     protected String description;
+    protected long duration;
+    protected LocalDateTime startTime;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm");
 
-    public Task(String name, String description, TaskStatus status) {
+    public Task(int id, String name, String description, TaskStatus status, long duration, LocalDateTime startTime) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+    public Task(String name, String description, long duration, LocalDateTime startTime) {
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.startTime = startTime;
     }
 
     public Task(int id, String name, String description, TaskStatus status) {
@@ -33,6 +48,22 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
     public String getName() {
@@ -68,8 +99,19 @@ public class Task {
     }
 
     public String toCSVForm() {
-        return String.format("%d,%s,%s,%s,%s,", id, taskType, name, status,
-                description);
+        return String.format("%d,%s,%s,%s,%s,%s,%s", id, taskType, name, status,
+                description, duration, startTime);
+    }
+
+    public LocalDateTime getEndTime() {
+//        LocalDateTime endTime;
+//        if (startTime != null) {
+//            endTime = startTime.plusMinutes(duration);
+//        } else {
+//            endTime = null;
+//        }
+//        return endTime;
+        return startTime != null ? startTime.plusMinutes(duration) : null;
     }
 
     @Override
@@ -80,6 +122,9 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
+                ", duration=" + duration +
+                ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
+                ", endTime=" + (getEndTime() == null ? null : getEndTime().format(formatter)) +
                 '}';
     }
 

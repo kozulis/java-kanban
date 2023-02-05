@@ -1,13 +1,21 @@
 package ru.yandex.praktikum.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task{
     protected TaskType taskType = TaskType.EPIC;
+    private LocalDateTime endTime;
+
     private final ArrayList<Integer> subtaskIds = new ArrayList<>();
 
-    public Epic(String name, String description, TaskStatus status) {
-        super(name, description, status);
+    public Epic(int id, String name, String description, TaskStatus status, long duration, LocalDateTime startTime) {
+        super(id, name, description, status, duration, startTime);
+        setTaskType(TaskType.EPIC);
+    }
+
+    public Epic(String name, String description, long duration, LocalDateTime startTime) {
+        super(name, description, duration, startTime);
         setTaskType(TaskType.EPIC);
     }
 
@@ -19,6 +27,15 @@ public class Epic extends Task{
     public Epic(String name, String description) {
         super(name, description);
         setTaskType(TaskType.EPIC);
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public ArrayList<Integer> getSubtaskIds() {
@@ -51,12 +68,6 @@ public class Epic extends Task{
         subtaskIds.remove(id);
     }
 
-//    @Override
-//    public String toCSVForm() {
-//        return String.format("%d,%s,%s,%s,%s,", id, taskType, name, status,
-//                description);
-//    }
-
     @Override
     public String toString() {
         return "Epic{" +
@@ -65,6 +76,9 @@ public class Epic extends Task{
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
+                ", duration=" + duration +
+                ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
+                ", endTime=" + (getEndTime() == null ? null : getEndTime().format(formatter)) +
                 '}';
     }
 }

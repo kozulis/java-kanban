@@ -5,6 +5,7 @@ import ru.yandex.praktikum.model.Subtask;
 import ru.yandex.praktikum.model.Task;
 import ru.yandex.praktikum.model.TaskStatus;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,6 +109,7 @@ public class InMemoryTaskManager implements TaskManager {
         for (Integer key : epics.keySet()) {
             epics.get(key).cleanAllSubtask();
             changeEpicStatus(key);
+            calculateEpicDuration(epics.get(key));
         }
     }
 
@@ -131,6 +133,7 @@ public class InMemoryTaskManager implements TaskManager {
             subtasks.put(subtask.getId(), subtask);
             epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
             changeEpicStatus(subtask.getEpicId());
+            calculateEpicDuration(epics.get(subtask.getEpicId()));
             generateId++;
             return subtask.getId();
         } else {
@@ -146,6 +149,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtasks.containsKey(subtask.getId())) {
             subtasks.put(subtask.getId(), subtask);
             changeEpicStatus(subtask.getEpicId());
+            calculateEpicDuration(epics.get(subtask.getEpicId()));
         } else {
             throw new ManagerException("Подзадача не найдена");
         }
@@ -159,6 +163,7 @@ public class InMemoryTaskManager implements TaskManager {
         if (subtasks.containsKey(id)) {
             epics.get(subtasks.get(id).getEpicId()).removeSubtaskById(id);
             changeEpicStatus(subtasks.get(id).getEpicId());
+            calculateEpicDuration(epics.get(subtasks.get(id).getEpicId()));
             subtasks.remove(id);
             historyManager.remove(id);
         } else {
@@ -177,6 +182,7 @@ public class InMemoryTaskManager implements TaskManager {
             }
             epic.cleanAllSubtask();
             changeEpicStatus(epic.getId());
+            calculateEpicDuration(epic);
         } else {
             throw new ManagerException("Эпик на найден");
         }
@@ -245,6 +251,10 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
             epics.put(epic.getId(), epic);
+            changeEpicStatus(epic.getId());
+            calculateEpicDuration(epic);
+        } else {
+            throw new ManagerException("Эпик не найден");
         }
     }
 
@@ -289,10 +299,32 @@ public class InMemoryTaskManager implements TaskManager {
                     epic.setStatus(TaskStatus.IN_PROGRESS);
                 }
             } else {
-                epic.setStatus(TaskStatus.NEW);
+                epic.setStatus(epic.getStatus()); //todo
             }
         } else {
             throw new ManagerException("Id эпика указан не верно");
+        }
+    }
+
+    protected void calculateEpicDuration(Epic epic) {
+        long duration = 0L;
+        LocalDateTime startDateTime = LocalDateTime.MAX;
+        LocalDateTime endDateTime = LocalDateTime.MIN;
+        if (!epic.getSubtaskIds().isEmpty()) {
+            for (int idSubTask : epic.getSubtaskIds()) {
+                Subtask subtask = subtasks.get(idSubTask);
+                if (subtask.getStartTime() != null && subtask.getStartTime().isBefore(startDateTime)) {
+                    startDateTime = subtask.getStartTime();
+                }
+                if (subtask.getEndTime() != null && subtask.getEndTime().isAfter(endDateTime)) {
+                    endDateTime = subtask.getEndTime();
+                }
+                duration += subtask.getDuration();
+            }
+        } else {
+            epic.setStartTime(null);
+            epic.setEndTime(null);
+            epic.setDuration(duration);
         }
     }
 }

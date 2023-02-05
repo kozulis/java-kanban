@@ -32,12 +32,6 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description");
         subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description");
     }
-//    Epic epic = new Epic("Epic name", "Epic description");
-//    Epic epic1 = new Epic("Epic1 name", "Epic1 description");
-//    Task task = new Task("Task name", "Task description");
-//    Subtask subtask1 = new Subtask(1, "Subtask1 name", "Subtask1 description");
-//    Subtask subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description");
-//    Subtask subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description");
 
     //  тесты для Task
     @Test
@@ -334,6 +328,14 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         Assertions.assertEquals(TaskStatus.DONE, epic.getStatus(), "Статус не обновился");
         Assertions.assertEquals("Epic description update", epic.getDescription(),
                 "Описание не обновилось");
+    }
+
+    @Test
+    void ShouldThrowExceptionWhenUpdateWrongEpic() {
+        final ManagerException exception = Assertions.assertThrows(
+                ManagerException.class,
+                () -> taskManager.updateEpic(epic));
+        Assertions.assertEquals("Эпик не найден", exception.getMessage());
     }
 
     @Test

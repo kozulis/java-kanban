@@ -3,6 +3,7 @@ package ru.yandex.praktikum.service;
 import ru.yandex.praktikum.model.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +119,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      */
     void save() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
-            bufferedWriter.write("id,type,name,status,description,epic\n");
+            bufferedWriter.write("id,type,name,status,description,duration,startTime,epic\n");
             for (Task task : tasks.values()){
                 bufferedWriter.write(taskToString(task) + "\n");
             }
@@ -157,21 +158,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             String name = split[2];
             TaskStatus status = TaskStatus.valueOf(split[3]);
             String description = split[4];
+            long duration = Long.parseLong(split[5]);
+            LocalDateTime startTime = null;
+            
+            if (!split[6].equals("null")) {
+                startTime = LocalDateTime.parse(split[6]);
+            }
 
             switch (type) {
                 case TASK: {
-                    Task task = new Task(id, name, description, status);
+                    Task task = new Task(id, name, description, status, duration, startTime);
                     tasks.put(id,task); //// положил задачу в мапу
                     return task;
                 }
                 case EPIC: {
-                    Epic epic = new Epic(id, name, description, status);
+                    Epic epic = new Epic(id, name, description, status, duration, startTime);
                     epics.put(id, epic); //// положил эпик в мапу
                     return epic;
                 }
                 case SUBTASK: {
-                    int epicId = Integer.parseInt(split[5]);
-                    Subtask subtask = new Subtask(id, epicId, name, description, status);
+                    int epicId = Integer.parseInt(split[7]);
+                    Subtask subtask = new Subtask(id, name, description, status, duration, startTime, epicId);
                     subtasks.put(id, subtask); //// положил сабкаску в мапу
                     epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId()); /// добавил id сабтаски в список к эпику
                     return subtask;
