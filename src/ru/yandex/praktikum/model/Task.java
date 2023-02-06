@@ -104,13 +104,6 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-//        LocalDateTime endTime;
-//        if (startTime != null) {
-//            endTime = startTime.plusMinutes(duration);
-//        } else {
-//            endTime = null;
-//        }
-//        return endTime;
         return startTime != null ? startTime.plusMinutes(duration) : null;
     }
 
@@ -124,7 +117,7 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", duration=" + duration +
                 ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
-                ", endTime=" + (getEndTime() == null ? null : getEndTime().format(formatter)) +
+                ", endTime=" + (getEndTime() == null ? "null" : getEndTime().format(formatter)) +
                 '}';
     }
 

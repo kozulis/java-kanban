@@ -41,7 +41,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println();
 
         System.out.println("Создание эпика без подзадач");
-        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", 30, LocalDateTime.now());
+        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
         taskManager.addNewEpic(epic1);
         System.out.println(epic1);
         System.out.println();
@@ -190,8 +190,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     /**
      * сохранение менеджера в строку
-     * @param manager менеджер
-     * @return строка
      */
     static String historyToString(HistoryManager manager) {
         StringBuilder sb = new StringBuilder();
@@ -209,8 +207,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     /**
      * восстановление менеджера из строки
-     * @param value строка
-     * @return менеджер
      */
     static List<Integer> historyFromString(String value) {
         List<Integer> historyList = new ArrayList<>();

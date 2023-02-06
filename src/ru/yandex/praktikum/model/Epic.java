@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Epic extends Task{
     protected TaskType taskType = TaskType.EPIC;
-    private LocalDateTime endTime;
+    protected LocalDateTime endTime;
 
     private final ArrayList<Integer> subtaskIds = new ArrayList<>();
 
@@ -14,10 +14,10 @@ public class Epic extends Task{
         setTaskType(TaskType.EPIC);
     }
 
-    public Epic(String name, String description, long duration, LocalDateTime startTime) {
-        super(name, description, duration, startTime);
-        setTaskType(TaskType.EPIC);
-    }
+//    public Epic(String name, String description, long duration, LocalDateTime startTime) {
+//        super(name, description, duration, startTime);
+//        setTaskType(TaskType.EPIC);
+//    }
 
     public Epic(int id, String name, String description, TaskStatus status) {
         super(id, name, description, status);
@@ -29,13 +29,13 @@ public class Epic extends Task{
         setTaskType(TaskType.EPIC);
     }
 
-//    @Override
-//    public LocalDateTime getEndTime() {
-//        return endTime;
-//    }
-//
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
     public ArrayList<Integer> getSubtaskIds() {
@@ -78,7 +78,7 @@ public class Epic extends Task{
                 ", description='" + description + '\'' +
                 ", duration=" + duration +
                 ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
-                ", endTime=" + (getEndTime() == null ? null : getEndTime().format(formatter)) +
+                ", endTime=" + (endTime == null ? "null" : endTime.format(formatter)) +
                 '}';
     }
 }

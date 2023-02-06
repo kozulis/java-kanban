@@ -299,13 +299,16 @@ public class InMemoryTaskManager implements TaskManager {
                     epic.setStatus(TaskStatus.IN_PROGRESS);
                 }
             } else {
-                epic.setStatus(epic.getStatus()); //todo
+                epic.setStatus(epic.getStatus());
             }
         } else {
             throw new ManagerException("Id эпика указан не верно");
         }
     }
 
+    /**
+     * Рассчитывает продолжительность эпика
+     */
     protected void calculateEpicDuration(Epic epic) {
         long duration = 0L;
         LocalDateTime startDateTime = null;

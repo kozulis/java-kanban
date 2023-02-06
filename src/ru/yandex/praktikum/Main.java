@@ -20,16 +20,16 @@ public class Main {
         System.out.println();
 
         System.out.println("Создание эпика с 3мя поздадачами");
-        Epic epic = new Epic("Собраться на работу", "Одеться", 30, LocalDateTime.now());
+        Epic epic = new Epic("Собраться на работу", "Одеться");
         taskManager.addNewEpic(epic);
         Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки",
-                50, LocalDateTime.now());
+                50, LocalDateTime.of(2022, 2, 5, 17, 0));
         taskManager.addNewSubtask(subtask);
         Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка",
-                60, LocalDateTime.now());
+                60, LocalDateTime.of(2022, 2, 6, 17, 0));
         taskManager.addNewSubtask(subtask1);
         Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек",
-                70, LocalDateTime.now());
+                70, LocalDateTime.of(2022, 2, 9, 17, 0));
         taskManager.addNewSubtask(subtask2);
         System.out.println(epic);
         System.out.println(subtask);
@@ -38,7 +38,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Создание эпика без подзадач");
-        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", 40, LocalDateTime.now());
+        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
         taskManager.addNewEpic(epic1);
         System.out.println(epic1);
         System.out.println();
