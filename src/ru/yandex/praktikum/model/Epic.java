@@ -14,11 +14,6 @@ public class Epic extends Task{
         setTaskType(TaskType.EPIC);
     }
 
-//    public Epic(String name, String description, long duration, LocalDateTime startTime) {
-//        super(name, description, duration, startTime);
-//        setTaskType(TaskType.EPIC);
-//    }
-
     public Epic(int id, String name, String description, TaskStatus status) {
         super(id, name, description, status);
         setTaskType(TaskType.EPIC);

@@ -87,6 +87,14 @@ public class Main {
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
+        System.out.println("Очистка списка подзадач определенного эпика");
+        taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
+        System.out.println();
+
+        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+        System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println();
+
         System.out.println("Получение списка всех задач");
         System.out.println(taskManager.getTasksList());
         System.out.println();
@@ -97,10 +105,6 @@ public class Main {
 
         System.out.println("Получение списка всех подзадач");
         System.out.println(taskManager.getSubtasksList());
-        System.out.println();
-
-        System.out.println("Получение списка подзадач определенного эпика");
-        System.out.println(taskManager.getSubtaskListByEpic(taskManager.getEpicById(10)));
         System.out.println();
 
 

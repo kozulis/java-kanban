@@ -4,10 +4,7 @@ import static ru.yandex.praktikum.model.TaskStatus.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.yandex.praktikum.model.Epic;
-import ru.yandex.praktikum.model.Subtask;
-import ru.yandex.praktikum.model.Task;
-import ru.yandex.praktikum.model.TaskStatus;
+import ru.yandex.praktikum.model.*;
 import ru.yandex.praktikum.service.ManagerException;
 import ru.yandex.praktikum.service.TaskManager;
 
@@ -28,10 +25,13 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void beforeEach() {
         epic = new Epic("Epic name", "Epic description");
         epic1 = new Epic("Epic1 name", "Epic1 description");
-        task = new Task("Task name", "Task description");
-        subtask1 = new Subtask(1, "Subtask1 name", "Subtask1 description");
-        subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description");
-        subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description");
+        task = new Task("Task name", "Task description", 30, LocalDateTime.now());
+        subtask1 = new Subtask(1, "Subtask1 name", "Subtask1 description",
+                40, LocalDateTime.now());
+        subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description",
+                50, LocalDateTime.now());
+        subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description",
+                60, LocalDateTime.now());
     }
 
     //  тесты для Task

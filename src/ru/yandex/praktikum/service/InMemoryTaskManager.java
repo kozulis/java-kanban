@@ -1,14 +1,9 @@
 package ru.yandex.praktikum.service;
 
-import ru.yandex.praktikum.model.Epic;
-import ru.yandex.praktikum.model.Subtask;
-import ru.yandex.praktikum.model.Task;
-import ru.yandex.praktikum.model.TaskStatus;
+import ru.yandex.praktikum.model.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class InMemoryTaskManager implements TaskManager {
 
@@ -17,12 +12,17 @@ public class InMemoryTaskManager implements TaskManager {
     protected final HashMap<Integer, Task> tasks = new HashMap<>();
     protected final HashMap<Integer, Epic> epics = new HashMap<>();
     protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-
+    protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task :: getStartTime));
     HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
+    }
+
+    @Override
+    public Set<Task> getPrioritizedTasks() {
+        return prioritizedTasks;
     }
 
     // Методы для Task
@@ -40,6 +40,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void cleanAllTasks() {
+        tasks.keySet().forEach(historyManager :: remove);  // TODO: 06.02.2023  удалить из приор
         tasks.clear();
     }
 
@@ -56,7 +57,7 @@ public class InMemoryTaskManager implements TaskManager {
      * Создание новой задачи
      */
     @Override
-    public int addNewTask(Task task) {
+    public int addNewTask(Task task) { // TODO: 06.02.2023 добавить в приор
         task.setId(generateId);
         task.setStatus(TaskStatus.NEW);
         tasks.put(task.getId(), task);
@@ -68,7 +69,7 @@ public class InMemoryTaskManager implements TaskManager {
      * обновление задачи
      */
     @Override
-    public void updateTask(Task task) {
+    public void updateTask(Task task) {  // TODO: 06.02.2023  удалить из приор, добавить в приор
         if (tasks.containsKey(task.getId())) {
             tasks.put(task.getId(), task);
         } else {
@@ -80,7 +81,7 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление задачи по id
      */
     @Override
-    public void removeTaskById(Integer id) {
+    public void removeTaskById(Integer id) {  // TODO: 06.02.2023  удалить из приор
         if (tasks.containsKey(id)) {
             tasks.remove(id);
             historyManager.remove(id);
@@ -105,6 +106,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void cleanAllSubtasks() {
+        subtasks.keySet().forEach(historyManager :: remove); // TODO: 06.02.2023  удалить из приор
         subtasks.clear();
         for (Integer key : epics.keySet()) {
             epics.get(key).cleanAllSubtask();
@@ -126,7 +128,7 @@ public class InMemoryTaskManager implements TaskManager {
      * создание новой подзадачи и добавление ее id в список эпика
      */
     @Override
-    public int addNewSubtask(Subtask subtask) {
+    public int addNewSubtask(Subtask subtask) { // TODO: 06.02.2023 добавить в приор
         if (epics.containsKey(subtask.getEpicId())) {
             subtask.setId(generateId);
             subtask.setStatus(TaskStatus.NEW);
@@ -145,7 +147,7 @@ public class InMemoryTaskManager implements TaskManager {
      * обновление подзадачи
      */
     @Override
-    public void updateSubtask(Subtask subtask) {
+    public void updateSubtask(Subtask subtask) { // TODO: 06.02.2023 добавить в приор
         if (subtasks.containsKey(subtask.getId())) {
             subtasks.put(subtask.getId(), subtask);
             changeEpicStatus(subtask.getEpicId());
@@ -159,7 +161,7 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление подзадачи по id из мапы и из списка задач эпика
      */
     @Override
-    public void removeSubtaskById(int id) {
+    public void removeSubtaskById(int id) { // TODO: 06.02.2023  удалить из приор
         if (subtasks.containsKey(id)) {
             epics.get(subtasks.get(id).getEpicId()).removeSubtaskById(id);
             changeEpicStatus(subtasks.get(id).getEpicId());
@@ -175,10 +177,11 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление всех подзадач определенного эпика
      */
     @Override
-    public void cleanAllSubtasksByEpic(Epic epic) {
+    public void cleanAllSubtasksByEpic(Epic epic) { // TODO: 06.02.2023  удалить из приор
         if (epics.containsValue(epic)) {
             for (Integer id : epic.getSubtaskIds()) {
                 subtasks.remove(id);
+                historyManager.remove(id);
             }
             epic.cleanAllSubtask();
             changeEpicStatus(epic.getId());
@@ -219,6 +222,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void cleanAllEpics() {
+        epics.keySet().forEach(historyManager :: remove); // TODO: 06.02.2023  удалить из приор
         epics.clear();
         subtasks.clear();
     }
@@ -262,7 +266,7 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление эпика по id и удаление его подзадач из мапы подзадач
      */
     @Override
-    public void removeEpicById(int id) {
+    public void removeEpicById(int id) { // TODO: 06.02.2023  удалить из приор
         if (epics.containsKey(id)) {
             for (Integer idSubtask : epics.get(id).getSubtaskIds()) {
                 subtasks.remove(idSubtask);
@@ -311,25 +315,25 @@ public class InMemoryTaskManager implements TaskManager {
      */
     protected void calculateEpicDuration(Epic epic) {
         long duration = 0L;
-        LocalDateTime startDateTime = null;
-        LocalDateTime endDateTime = null;
+        LocalDateTime EpicStartTime = null;
+        LocalDateTime EpicEndTime = null;
 
         if (!epic.getSubtaskIds().isEmpty()) {
             for (int idSubTask : epic.getSubtaskIds()) {
                 Subtask subtask = subtasks.get(idSubTask);
                 duration += subtask.getDuration();
                 if (subtask.getStartTime() != null &&
-                        (startDateTime == null || subtask.getStartTime().isBefore(startDateTime))) {
-                    startDateTime = subtask.getStartTime();
+                        (EpicStartTime == null || subtask.getStartTime().isBefore(EpicStartTime))) {
+                    EpicStartTime = subtask.getStartTime();
                 }
                 if (subtask.getEndTime() != null &&
-                        (endDateTime == null || subtask.getEndTime().isAfter(endDateTime))) {
-                    endDateTime = subtask.getEndTime();
+                        (EpicEndTime == null || subtask.getEndTime().isAfter(EpicEndTime))) {
+                    EpicEndTime = subtask.getEndTime();
                 }
             }
         }
-        epic.setStartTime(startDateTime);
-        epic.setEndTime(endDateTime);
+        epic.setStartTime(EpicStartTime);
+        epic.setEndTime(EpicEndTime);
         epic.setDuration(duration);
     }
 }

@@ -6,12 +6,15 @@ import ru.yandex.praktikum.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
 
     List<Task> getHistory();
+    Set<Task> getPrioritizedTasks();
 
-    // Методы для Task
+
+// Методы для Task
     ArrayList<Task> getTasksList();
 
     void cleanAllTasks();
