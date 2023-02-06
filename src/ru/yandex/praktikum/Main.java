@@ -12,9 +12,11 @@ public class Main {
         TaskManager taskManager = Managers.getDefault();
 
         System.out.println("Создание новых задач");
-        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10, LocalDateTime.now());
+        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10,
+                LocalDateTime.of(2022, 2, 5, 17, 0));
         taskManager.addNewTask(task);
-        Task task1 = new Task("Позавтракать", "Сварить кашку", 20, LocalDateTime.now());
+        Task task1 = new Task("Позавтракать", "Сварить кашку", 20,
+                LocalDateTime.of(2022, 2, 7, 17, 0));
         taskManager.addNewTask(task1);
         System.out.println(taskManager.getTasksList());
         System.out.println();
@@ -22,11 +24,11 @@ public class Main {
         System.out.println("Создание эпика с 3мя поздадачами");
         Epic epic = new Epic("Собраться на работу", "Одеться");
         taskManager.addNewEpic(epic);
-        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки",
-                50, LocalDateTime.of(2022, 2, 5, 17, 0));
+        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки"/*,
+                50, LocalDateTime.of(2022, 2, 6, 17, 0)*/);
         taskManager.addNewSubtask(subtask);
         Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка",
-                60, LocalDateTime.of(2022, 2, 6, 17, 0));
+                60, LocalDateTime.of(2022, 2, 8, 17, 0));
         taskManager.addNewSubtask(subtask1);
         Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек",
                 70, LocalDateTime.of(2022, 2, 9, 17, 0));
@@ -87,12 +89,31 @@ public class Main {
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
-        System.out.println("Очистка списка подзадач определенного эпика");
-        taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
+        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        taskManager.getPrioritizedTasks().forEach(System.out::println);
+        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();
+
+//        System.out.println("Очистка списка подзадач определенного эпика");
+//        taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
+//        System.out.println();
+
+//        System.out.println("Удаление списка всех тасков");
+//        taskManager.cleanAllTasks();
+//        System.out.println(taskManager.getTasksList());
+//        System.out.println();
+
+//        System.out.println("Удаление эпика по id");
+//        taskManager.removeEpicById(3);
+//        System.out.println();
 
         System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
         System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println();
+
+        System.out.println("Проверка задач по приоритету : \n" /*+ taskManager.getPrioritizedTasks()*/);
+        taskManager.getPrioritizedTasks().forEach(System.out::println);
+        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();
 
         System.out.println("Получение списка всех задач");

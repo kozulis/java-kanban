@@ -59,7 +59,7 @@ public class Epic extends Task{
     /**
      * удаление подзадачи из списка
      */
-     public void removeSubtaskById(Integer id) {
+     public void removeSubtaskIdsListByEpicId(Integer id) {
         subtaskIds.remove(id);
     }
 

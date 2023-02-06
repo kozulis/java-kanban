@@ -9,10 +9,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     protected int generateId = 1;
 
-    protected final HashMap<Integer, Task> tasks = new HashMap<>();
-    protected final HashMap<Integer, Epic> epics = new HashMap<>();
-    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task :: getStartTime));
+    protected final Map<Integer, Task> tasks = new HashMap<>();
+    protected final Map<Integer, Epic> epics = new HashMap<>();
+    protected final Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
+                    Comparator.nullsLast(Comparator.naturalOrder())).thenComparing(Task::getId));
+
     HistoryManager historyManager = Managers.getDefaultHistory();
 
     @Override
@@ -21,8 +23,8 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Set<Task> getPrioritizedTasks() {
-        return prioritizedTasks;
+    public List<Task> getPrioritizedTasks() {
+        return new ArrayList<>(prioritizedTasks);
     }
 
     // Методы для Task
@@ -40,7 +42,8 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void cleanAllTasks() {
-        tasks.keySet().forEach(historyManager :: remove);  // TODO: 06.02.2023  удалить из приор
+        tasks.keySet().forEach(historyManager::remove);
+        prioritizedTasks.removeIf(tasks::containsValue);
         tasks.clear();
     }
 
@@ -57,10 +60,11 @@ public class InMemoryTaskManager implements TaskManager {
      * Создание новой задачи
      */
     @Override
-    public int addNewTask(Task task) { // TODO: 06.02.2023 добавить в приор
+    public int addNewTask(Task task) {
         task.setId(generateId);
         task.setStatus(TaskStatus.NEW);
         tasks.put(task.getId(), task);
+        prioritizedTasks.add(task);
         generateId++;
         return task.getId();
     }
@@ -69,9 +73,11 @@ public class InMemoryTaskManager implements TaskManager {
      * обновление задачи
      */
     @Override
-    public void updateTask(Task task) {  // TODO: 06.02.2023  удалить из приор, добавить в приор
+    public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
+            prioritizedTasks.remove(tasks.get(task.getId()));
             tasks.put(task.getId(), task);
+            prioritizedTasks.add(task);
         } else {
             throw new ManagerException("Задача не найдена");
         }
@@ -81,8 +87,9 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление задачи по id
      */
     @Override
-    public void removeTaskById(Integer id) {  // TODO: 06.02.2023  удалить из приор
+    public void removeTaskById(int id) {
         if (tasks.containsKey(id)) {
+            prioritizedTasks.remove(tasks.get(id));
             tasks.remove(id);
             historyManager.remove(id);
         } else {
@@ -94,7 +101,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     /**
      * получение списка подзадач
-     * @return список подзадач
      */
     @Override
     public ArrayList<Subtask> getSubtasksList() {
@@ -106,7 +112,8 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void cleanAllSubtasks() {
-        subtasks.keySet().forEach(historyManager :: remove); // TODO: 06.02.2023  удалить из приор
+        subtasks.keySet().forEach(historyManager :: remove);
+        prioritizedTasks.removeIf(subtasks::containsValue);
         subtasks.clear();
         for (Integer key : epics.keySet()) {
             epics.get(key).cleanAllSubtask();
@@ -128,7 +135,7 @@ public class InMemoryTaskManager implements TaskManager {
      * создание новой подзадачи и добавление ее id в список эпика
      */
     @Override
-    public int addNewSubtask(Subtask subtask) { // TODO: 06.02.2023 добавить в приор
+    public int addNewSubtask(Subtask subtask) {
         if (epics.containsKey(subtask.getEpicId())) {
             subtask.setId(generateId);
             subtask.setStatus(TaskStatus.NEW);
@@ -136,6 +143,7 @@ public class InMemoryTaskManager implements TaskManager {
             epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
             changeEpicStatus(subtask.getEpicId());
             calculateEpicDuration(epics.get(subtask.getEpicId()));
+            prioritizedTasks.add(subtask);
             generateId++;
             return subtask.getId();
         } else {
@@ -147,9 +155,11 @@ public class InMemoryTaskManager implements TaskManager {
      * обновление подзадачи
      */
     @Override
-    public void updateSubtask(Subtask subtask) { // TODO: 06.02.2023 добавить в приор
+    public void updateSubtask(Subtask subtask) {
         if (subtasks.containsKey(subtask.getId())) {
+            prioritizedTasks.remove(subtasks.get(subtask.getId()));
             subtasks.put(subtask.getId(), subtask);
+            prioritizedTasks.add(subtask);
             changeEpicStatus(subtask.getEpicId());
             calculateEpicDuration(epics.get(subtask.getEpicId()));
         } else {
@@ -161,11 +171,12 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление подзадачи по id из мапы и из списка задач эпика
      */
     @Override
-    public void removeSubtaskById(int id) { // TODO: 06.02.2023  удалить из приор
+    public void removeSubtaskById(int id) {
         if (subtasks.containsKey(id)) {
-            epics.get(subtasks.get(id).getEpicId()).removeSubtaskById(id);
+            epics.get(subtasks.get(id).getEpicId()).removeSubtaskIdsListByEpicId(id);
             changeEpicStatus(subtasks.get(id).getEpicId());
             calculateEpicDuration(epics.get(subtasks.get(id).getEpicId()));
+            prioritizedTasks.remove(subtasks.get(id));
             subtasks.remove(id);
             historyManager.remove(id);
         } else {
@@ -177,9 +188,10 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление всех подзадач определенного эпика
      */
     @Override
-    public void cleanAllSubtasksByEpic(Epic epic) { // TODO: 06.02.2023  удалить из приор
+    public void cleanAllSubtasksByEpic(Epic epic) {
         if (epics.containsValue(epic)) {
             for (Integer id : epic.getSubtaskIds()) {
+                prioritizedTasks.remove(subtasks.get(id));
                 subtasks.remove(id);
                 historyManager.remove(id);
             }
@@ -222,7 +234,9 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public void cleanAllEpics() {
-        epics.keySet().forEach(historyManager :: remove); // TODO: 06.02.2023  удалить из приор
+        epics.keySet().forEach(historyManager::remove);
+        subtasks.keySet().forEach(historyManager::remove);
+        prioritizedTasks.removeIf(subtasks::containsValue);
         epics.clear();
         subtasks.clear();
     }
@@ -266,9 +280,10 @@ public class InMemoryTaskManager implements TaskManager {
      * удаление эпика по id и удаление его подзадач из мапы подзадач
      */
     @Override
-    public void removeEpicById(int id) { // TODO: 06.02.2023  удалить из приор
+    public void removeEpicById(int id) {
         if (epics.containsKey(id)) {
             for (Integer idSubtask : epics.get(id).getSubtaskIds()) {
+                prioritizedTasks.remove(subtasks.get(idSubtask));
                 subtasks.remove(idSubtask);
                 historyManager.remove(idSubtask);
             }

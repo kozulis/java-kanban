@@ -52,6 +52,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
+
+        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        taskManager.getPrioritizedTasks().forEach(System.out::println);
+        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
+        System.out.println();
+
         System.out.println("Получение задачи по id");
         System.out.println(taskManager.getTaskById(1));
         System.out.println();
@@ -93,6 +99,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
+        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        taskManager.getPrioritizedTasks().forEach(System.out::println);
+        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
+        System.out.println();
 
         System.out.println("Проверка восстановления менеджера из файла\n");
         FileBackedTasksManager loadTasksManager =
@@ -112,6 +122,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
         System.out.println("Проверка записи в историю : \n" + loadTasksManager.getHistory());
         System.out.println("Размер списка: " + loadTasksManager.getHistory().size());
+        System.out.println();
+
+
+        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        taskManager.getPrioritizedTasks().forEach(System.out::println);
+        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();
 
     }
@@ -290,7 +306,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void removeTaskById(Integer id) {
+    public void removeTaskById(int id) {
         super.removeTaskById(id);
         save();
     }
