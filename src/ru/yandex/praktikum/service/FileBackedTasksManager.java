@@ -17,92 +17,98 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static void main(String[] args) {
         TaskManager taskManager = new FileBackedTasksManager(new File("resources/historyData.csv"));
-        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10, LocalDateTime.now());
-        taskManager.addNewTask(task);
-        Task task1 = new Task("Позавтракать", "Сварить кашку", 20, LocalDateTime.now());
-        taskManager.addNewTask(task1);
-        System.out.println(taskManager.getTasksList());
-        System.out.println();
 
-        System.out.println("Создание эпика с 3мя поздадачами");
-        Epic epic = new Epic("Собраться на работу", "Одеться");
-        taskManager.addNewEpic(epic);
-        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки",
-                50, LocalDateTime.of(2022, 2, 5, 17, 0));
-        taskManager.addNewSubtask(subtask);
-        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка",
-                60, LocalDateTime.of(2022, 2, 6, 17, 0));
-        taskManager.addNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек",
-                70, LocalDateTime.of(2022, 2, 9, 17, 0));
-        taskManager.addNewSubtask(subtask2);
-        System.out.println(epic);
-        System.out.println(subtask);
-        System.out.println(subtask1);
-        System.out.println(subtask2);
-        System.out.println();
+//        System.out.println("Создание новых задач");
+//        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10,
+//                LocalDateTime.now());
+//        taskManager.addNewTask(task);
+//        Task task1 = new Task("Позавтракать", "Сварить кашку", 20,
+//                LocalDateTime.of(2022, 2, 8, 17, 0));
+//        taskManager.addNewTask(task1);
+//        System.out.println(taskManager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Создание эпика с 3мя поздадачами");
+//        Epic epic = new Epic("Собраться на работу", "Одеться");
+//        taskManager.addNewEpic(epic);
+//        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки"/*,
+//                50, LocalDateTime.of(2022, 2, 6, 17, 0)*/);
+//        taskManager.addNewSubtask(subtask);
+//        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка",
+//                60, LocalDateTime.of(2022, 2, 7, 17, 0));
+//        taskManager.addNewSubtask(subtask1);
+//        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек",
+//                70, LocalDateTime.of(2022, 2, 9, 17, 0));
+//        taskManager.addNewSubtask(subtask2);
+//        System.out.println(epic);
+//        System.out.println(subtask);
+//        System.out.println(subtask1);
+//        System.out.println(subtask2);
+//        System.out.println();
+//
+//        System.out.println("Создание эпика без подзадач");
+//        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
+//        taskManager.addNewEpic(epic1);
+//        System.out.println(epic1);
+//        System.out.println();
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
+//
+//
+//        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+//        taskManager.getPrioritizedTasks().forEach(System.out::println);
+//        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
+//        System.out.println();
+//
+//        System.out.println("Получение задачи по id");
+//        System.out.println(taskManager.getTaskById(1));
+//        System.out.println();
+//
+//        System.out.println("Получение задачи по id");
+//        System.out.println(taskManager.getTaskById(2));
+//        System.out.println();
+//
+//        System.out.println("Получение подзадачи по id");
+//        System.out.println(taskManager.getSubtaskById(4));
+//        System.out.println();
+//
+//        System.out.println("Получение подзадачи по id");
+//        System.out.println(taskManager.getSubtaskById(5));
+//        System.out.println();
+//
+//        System.out.println("Получение эпика по id");
+//        System.out.println(taskManager.getEpicById(3));
+//        System.out.println();
+//
+//        System.out.println("Получение эпика по id");
+//        System.out.println(taskManager.getEpicById(7));
+//        System.out.println();
+//
+//        System.out.println("Получение подзадачи по id");
+//        System.out.println(taskManager.getSubtaskById(6));
+//        System.out.println();
+//
+//        System.out.println("Получение подзадачи по id");
+//        System.out.println(taskManager.getSubtaskById(5));
+//        System.out.println();
+//
+//        System.out.println("Получение подзадачи по id");
+//        System.out.println(taskManager.getSubtaskById(5));
+//        System.out.println();
+//
+//
+//        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+//        System.out.println("Размер списка: " + taskManager.getHistory().size());
+//        System.out.println();
+//
+//        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+//        taskManager.getPrioritizedTasks().forEach(System.out::println);
+//        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
+//        System.out.println();
+//
 
-        System.out.println("Создание эпика без подзадач");
-        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
-        taskManager.addNewEpic(epic1);
-        System.out.println(epic1);
-        System.out.println();
-
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-        System.out.println("Размер списка: " + taskManager.getHistory().size());
-        System.out.println();
-
-
-        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
-        taskManager.getPrioritizedTasks().forEach(System.out::println);
-        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
-        System.out.println();
-
-        System.out.println("Получение задачи по id");
-        System.out.println(taskManager.getTaskById(1));
-        System.out.println();
-
-        System.out.println("Получение задачи по id");
-        System.out.println(taskManager.getTaskById(2));
-        System.out.println();
-
-        System.out.println("Получение подзадачи по id");
-        System.out.println(taskManager.getSubtaskById(4));
-        System.out.println();
-
-        System.out.println("Получение подзадачи по id");
-        System.out.println(taskManager.getSubtaskById(5));
-        System.out.println();
-
-        System.out.println("Получение эпика по id");
-        System.out.println(taskManager.getEpicById(3));
-        System.out.println();
-
-        System.out.println("Получение эпика по id");
-        System.out.println(taskManager.getEpicById(7));
-        System.out.println();
-
-        System.out.println("Получение подзадачи по id");
-        System.out.println(taskManager.getSubtaskById(6));
-        System.out.println();
-
-        System.out.println("Получение подзадачи по id");
-        System.out.println(taskManager.getSubtaskById(5));
-        System.out.println();
-
-        System.out.println("Получение подзадачи по id");
-        System.out.println(taskManager.getSubtaskById(5));
-        System.out.println();
-
-
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
-        System.out.println("Размер списка: " + taskManager.getHistory().size());
-        System.out.println();
-
-        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
-        taskManager.getPrioritizedTasks().forEach(System.out::println);
-        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
-        System.out.println();
 
         System.out.println("Проверка восстановления менеджера из файла\n");
         FileBackedTasksManager loadTasksManager =
@@ -126,8 +132,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
         System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
-        taskManager.getPrioritizedTasks().forEach(System.out::println);
-        System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
+        loadTasksManager.getPrioritizedTasks().forEach(System.out::println);
+        System.out.println("Размер списка: " + loadTasksManager.getPrioritizedTasks().size());
         System.out.println();
 
     }
@@ -187,6 +193,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 case TASK: {
                     Task task = new Task(id, name, description, status, duration, startTime);
                     tasks.put(id,task); //// положил задачу в мапу
+                    prioritizedTasks.add(task);
                     return task;
                 }
                 case EPIC: {
@@ -198,6 +205,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     int epicId = Integer.parseInt(split[7]);
                     Subtask subtask = new Subtask(id, name, description, status, duration, startTime, epicId);
                     subtasks.put(id, subtask); //// положил сабкаску в мапу
+                    prioritizedTasks.add(subtask);
                     epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId()); /// добавил id сабтаски в список к эпику
                     calculateEpicDuration(epics.get(subtask.getEpicId()));
                     return subtask;
