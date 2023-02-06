@@ -29,11 +29,11 @@ public class Epic extends Task{
         setTaskType(TaskType.EPIC);
     }
 
-    @Override
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
+//    @Override
+//    public LocalDateTime getEndTime() {
+//        return endTime;
+//    }
+//
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }

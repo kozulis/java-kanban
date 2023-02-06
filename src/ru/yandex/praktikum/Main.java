@@ -4,27 +4,32 @@ import ru.yandex.praktikum.model.*;
 import ru.yandex.praktikum.service.Managers;
 import ru.yandex.praktikum.service.TaskManager;
 
+import java.time.LocalDateTime;
+
 public class Main {
 
     public static void main(String[] args) {
         TaskManager taskManager = Managers.getDefault();
 
         System.out.println("Создание новых задач");
-        Task task = new Task("Утренняя зарядка", "Пробежка 3 км");
+        Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10, LocalDateTime.now());
         taskManager.addNewTask(task);
-        Task task1 = new Task("Позавтракать", "Сварить кашку");
+        Task task1 = new Task("Позавтракать", "Сварить кашку", 20, LocalDateTime.now());
         taskManager.addNewTask(task1);
         System.out.println(taskManager.getTasksList());
         System.out.println();
 
         System.out.println("Создание эпика с 3мя поздадачами");
-        Epic epic = new Epic("Собраться на работу", "Одеться");
+        Epic epic = new Epic("Собраться на работу", "Одеться", 30, LocalDateTime.now());
         taskManager.addNewEpic(epic);
-        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки");
+        Subtask subtask = new Subtask(epic.getId(), "Надеть брюки","Синие брюки",
+                50, LocalDateTime.now());
         taskManager.addNewSubtask(subtask);
-        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка");
+        Subtask subtask1 = new Subtask(epic.getId(), "Надеть рубашку","Белая рубашка",
+                60, LocalDateTime.now());
         taskManager.addNewSubtask(subtask1);
-        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек");
+        Subtask subtask2 = new Subtask(epic.getId(), "Надеть галстук","В горошек",
+                70, LocalDateTime.now());
         taskManager.addNewSubtask(subtask2);
         System.out.println(epic);
         System.out.println(subtask);
@@ -33,7 +38,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Создание эпика без подзадач");
-        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
+        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", 40, LocalDateTime.now());
         taskManager.addNewEpic(epic1);
         System.out.println(epic1);
         System.out.println();

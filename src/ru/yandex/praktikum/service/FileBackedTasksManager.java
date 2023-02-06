@@ -41,7 +41,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println();
 
         System.out.println("Создание эпика без подзадач");
-        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай");
+        Epic epic1 = new Epic("Поездка на работу", "Сесть в трамвай", 30, LocalDateTime.now());
         taskManager.addNewEpic(epic1);
         System.out.println(epic1);
         System.out.println();

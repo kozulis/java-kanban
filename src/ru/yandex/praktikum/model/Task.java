@@ -12,7 +12,7 @@ public class Task {
     protected String description;
     protected long duration;
     protected LocalDateTime startTime;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy, HH:mm");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy/HH:mm");
 
     public Task(int id, String name, String description, TaskStatus status, long duration, LocalDateTime startTime) {
         this.id = id;
