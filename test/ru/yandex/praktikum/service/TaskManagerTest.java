@@ -1,3 +1,5 @@
+package ru.yandex.praktikum.service;
+
 import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.*;
 import static ru.yandex.praktikum.model.TaskStatus.*;

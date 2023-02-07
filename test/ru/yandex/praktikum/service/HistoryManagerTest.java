@@ -1,3 +1,5 @@
+package ru.yandex.praktikum.service;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.praktikum.model.*;

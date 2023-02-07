@@ -1,10 +1,10 @@
+package ru.yandex.praktikum.service;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.praktikum.model.Subtask;
 import ru.yandex.praktikum.model.TaskStatus;
-import ru.yandex.praktikum.service.InMemoryTaskManager;
-import ru.yandex.praktikum.service.ManagerException;
 
 import java.time.LocalDateTime;
 
