@@ -94,18 +94,9 @@ public class Main {
         System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();
 
-//        System.out.println("Очистка списка подзадач определенного эпика");
-//        taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
-//        System.out.println();
-
-//        System.out.println("Удаление списка всех тасков");
-//        taskManager.cleanAllTasks();
-//        System.out.println(taskManager.getTasksList());
-//        System.out.println();
-
-//        System.out.println("Удаление эпика по id");
-//        taskManager.removeEpicById(3);
-//        System.out.println();
+        System.out.println("Очистка списка подзадач определенного эпика");
+        taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
+        System.out.println();
 
         System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
         System.out.println("Размер списка: " + taskManager.getHistory().size());
@@ -130,8 +121,19 @@ public class Main {
 
 
 /**
- * тут хранилище методов, чтобы не писать их заново
+ * хранилище методов, чтобы не писать их :)
  */
+
+//
+//        System.out.println("Удаление списка всех тасков");
+//        taskManager.cleanAllTasks();
+//        System.out.println(taskManager.getTasksList());
+//        System.out.println();
+//
+//        System.out.println("Удаление эпика по id");
+//        taskManager.removeEpicById(3);
+//        System.out.println();
+//
 //        System.out.println("удаление задачи 2");
 //        taskManager.removeTaskById(2);
 //        System.out.println(taskManager.getTasksList());

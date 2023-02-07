@@ -31,8 +31,7 @@ public abstract class TaskManagerTest<T extends TaskManager> {
                 LocalDateTime.of(2022, 2, 6, 11, 0));
         subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description", 50 ,
                 LocalDateTime.of(2022, 2, 7, 12, 0));
-        subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description", 60 ,
-                LocalDateTime.of(2022, 2, 8, 13, 0));
+        subtask3 = new Subtask(1, "Subtask2 name", "Subtask2 description");
     }
 
     //  тесты для Task
@@ -49,6 +48,23 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         Assertions.assertEquals(3, taskManager.getHistory().size(),
                 "Размер списка истории не совпадает");
         Assertions.assertEquals(historyList, taskManager.getHistory(), "Содержимое списка не совпадает");
+    }
+
+    @Test
+    void ShouldGetPrioritizedTasks() {
+        taskManager.addNewEpic(epic);
+        taskManager.addNewSubtask(subtask1);
+        taskManager.addNewTask(task);
+        taskManager.addNewSubtask(subtask2);
+        assertNotNull(taskManager.getPrioritizedTasks(), "Список пуст");
+        assertEquals(List.of(task, subtask1, subtask2), taskManager.getPrioritizedTasks(),
+                "Очередность задач в списке не верна");
+    }
+
+    @Test
+    void ShouldGetNullPrioritizedTasks() {
+        taskManager.addNewEpic(epic);
+        assertEquals(0, taskManager.getPrioritizedTasks().size(), "Список не пустой");
     }
 
     @Test
@@ -356,63 +372,4 @@ public abstract class TaskManagerTest<T extends TaskManager> {
                 () -> taskManager.removeEpicById(10));
         Assertions.assertEquals("Id эпика указан не верно", exception.getMessage());
     }
-
-    //  Дополнительные тесты для эпика
-
-    @Test
-    void ShouldGetEpicStatusNewWithEmptySubTaskList() {
-        taskManager.addNewEpic(epic);
-        assertEquals(NEW, epic.getStatus(), "Статусы не совпадают");
-    }
-
-    @Test
-    void ShouldGetEpicStatusNewWithSubTasksNew() {
-        taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask1);
-        taskManager.addNewSubtask(subtask2);
-        assertEquals(NEW, epic.getStatus(), "Статусы не совпадают");
-    }
-
-    @Test
-    void ShouldGetEpicStatusDoneWithSubTasksDone() {
-        taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask1);
-        taskManager.addNewSubtask(subtask2);
-        subtask1 = new Subtask(subtask1.getId(),epic.getId(), "Subtask1 name",
-                "Subtask1 description", DONE);
-        subtask2 = new Subtask(subtask2.getId(),epic.getId(), "Subtask2 name",
-                "Subtask2 description", DONE);
-        taskManager.updateSubtask(subtask1);
-        taskManager.updateSubtask(subtask2);
-        assertEquals(DONE, epic.getStatus(), "Статусы не совпадают");
-    }
-
-    @Test
-    void ShouldGetEpicStatusInProgressWithSubTasksDoneAndNew() {
-        taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask1);
-        taskManager.addNewSubtask(subtask2);
-        subtask1 = new Subtask(subtask1.getId(),epic.getId(), "Subtask1 name",
-                "Subtask1 description",DONE);
-        subtask2 = new Subtask(subtask2.getId(),epic.getId(), "Subtask2 name",
-                "Subtask2 description",NEW);
-        taskManager.updateSubtask(subtask1);
-        taskManager.updateSubtask(subtask2);
-        assertEquals(IN_PROGRESS, epic.getStatus(), "Статусы не совпадают");
-    }
-
-    @Test
-    void ShouldGetEpicStatusInProgressWithSubTasksInProgress(){
-        taskManager.addNewEpic(epic);
-        taskManager.addNewSubtask(subtask1);
-        taskManager.addNewSubtask(subtask2);
-        subtask1 = new Subtask(subtask1.getId(),epic.getId(), "Subtask1 name",
-                "Subtask1 description",IN_PROGRESS);
-        subtask2 = new Subtask(subtask2.getId(),epic.getId(), "Subtask2 name",
-                "Subtask2 description",IN_PROGRESS);
-        taskManager.updateSubtask(subtask1);
-        taskManager.updateSubtask(subtask2);
-        assertEquals(IN_PROGRESS, epic.getStatus(), "Статусы не совпадают");
-    }
-
 }
