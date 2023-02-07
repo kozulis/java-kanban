@@ -25,13 +25,14 @@ public abstract class TaskManagerTest<T extends TaskManager> {
     public void beforeEach() {
         epic = new Epic("Epic name", "Epic description");
         epic1 = new Epic("Epic1 name", "Epic1 description");
-        task = new Task("Task name", "Task description", 30, LocalDateTime.now());
-        subtask1 = new Subtask(1, "Subtask1 name", "Subtask1 description",
-                40, LocalDateTime.now());
-        subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description",
-                50, LocalDateTime.now());
-        subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description",
-                60, LocalDateTime.now());
+        task = new Task("Task name", "Task description", 30 ,
+                LocalDateTime.of(2022, 2, 5, 10, 0));
+        subtask1 = new Subtask(1, "Subtask1 name", "Subtask1 description", 40 ,
+                LocalDateTime.of(2022, 2, 6, 11, 0));
+        subtask2 = new Subtask(1, "Subtask2 name", "Subtask2 description", 50 ,
+                LocalDateTime.of(2022, 2, 7, 12, 0));
+        subtask3 = new Subtask(2, "Subtask2 name", "Subtask2 description", 60 ,
+                LocalDateTime.of(2022, 2, 8, 13, 0));
     }
 
     //  тесты для Task

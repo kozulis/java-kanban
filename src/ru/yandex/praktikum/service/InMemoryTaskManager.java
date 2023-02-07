@@ -30,7 +30,6 @@ public class InMemoryTaskManager implements TaskManager {
     // Методы для Task
     /**
      * получение списка задач
-     * @return список задач
      */
     @Override
     public ArrayList<Task> getTasksList() {
@@ -61,6 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public int addNewTask(Task task) {
+        IsTasksCrossInTime(task);
         task.setId(generateId);
         task.setStatus(TaskStatus.NEW);
         tasks.put(task.getId(), task);
@@ -75,6 +75,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
+            IsTasksCrossInTime(task);
             prioritizedTasks.remove(tasks.get(task.getId()));
             tasks.put(task.getId(), task);
             prioritizedTasks.add(task);
@@ -137,6 +138,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public int addNewSubtask(Subtask subtask) {
         if (epics.containsKey(subtask.getEpicId())) {
+            IsTasksCrossInTime(subtask);
             subtask.setId(generateId);
             subtask.setStatus(TaskStatus.NEW);
             subtasks.put(subtask.getId(), subtask);
@@ -157,6 +159,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubtask(Subtask subtask) {
         if (subtasks.containsKey(subtask.getId())) {
+            IsTasksCrossInTime(subtask);
             prioritizedTasks.remove(subtasks.get(subtask.getId()));
             subtasks.put(subtask.getId(), subtask);
             prioritizedTasks.add(subtask);
@@ -255,6 +258,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public int addNewEpic(Epic epic) {
+        IsTasksCrossInTime(epic);
         epic.setId(generateId);
         epic.setStatus(TaskStatus.NEW);
         epics.put(epic.getId(), epic);
@@ -268,6 +272,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
+            IsTasksCrossInTime(epic);
             epics.put(epic.getId(), epic);
             changeEpicStatus(epic.getId());
             calculateEpicDuration(epic);
@@ -350,5 +355,27 @@ public class InMemoryTaskManager implements TaskManager {
         epic.setStartTime(EpicStartTime);
         epic.setEndTime(EpicEndTime);
         epic.setDuration(duration);
+    }
+
+    /**
+     * проверка задач и подзадач на пересечение во времени
+     */
+    protected void IsTasksCrossInTime(Task task) {
+        if (getPrioritizedTasks().isEmpty() || task.getStartTime() == null && task.getEndTime() == null) {
+            return;
+        }
+        for (Task prioritizedTask : getPrioritizedTasks()) {
+            if (task.getId() == prioritizedTask.getId()) {
+                continue;
+            }
+            if (prioritizedTask.getStartTime() == null && prioritizedTask.getEndTime() == null) {
+                continue;
+            }
+            if (!task.getEndTime().isBefore((prioritizedTask.getStartTime()))
+                    && !task.getStartTime().isAfter(prioritizedTask.getEndTime())) {
+                throw new ManagerException(String.format("задача \"%s\" пересекается с существующей задачей \"%s\".",
+                        task.getName(), prioritizedTask.getName()));
+            }
+        }
     }
 }
