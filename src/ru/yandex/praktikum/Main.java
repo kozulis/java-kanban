@@ -13,7 +13,7 @@ public class Main {
 
         System.out.println("Создание новых задач");
         Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10,
-                LocalDateTime.now());
+                LocalDateTime.of(2022, 2, 8, 6, 50));
         taskManager.addNewTask(task);
         Task task1 = new Task("Позавтракать", "Сварить кашку", 20,
                 LocalDateTime.of(2022, 2, 8, 17, 0));
@@ -85,11 +85,11 @@ public class Main {
         System.out.println(taskManager.getSubtaskById(5));
         System.out.println();
 
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+        System.out.println("Проверка записи в историю: " + taskManager.getHistory());
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
-        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        System.out.println("Проверка задач по приоритету: "/* + taskManager.getPrioritizedTasks()*/);
         taskManager.getPrioritizedTasks().forEach(System.out::println);
         System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();
@@ -98,11 +98,11 @@ public class Main {
         taskManager.cleanAllSubtasksByEpic(taskManager.getEpicById(3));
         System.out.println();
 
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+        System.out.println("Проверка записи в историю: " + taskManager.getHistory());
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
-        System.out.println("Проверка задач по приоритету : \n" /*+ taskManager.getPrioritizedTasks()*/);
+        System.out.println("Проверка задач по приоритету: " /*+ taskManager.getPrioritizedTasks()*/);
         taskManager.getPrioritizedTasks().forEach(System.out::println);
         System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();

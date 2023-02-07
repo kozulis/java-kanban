@@ -99,11 +99,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println();
 
 
-        System.out.println("Проверка записи в историю : \n" + taskManager.getHistory());
+        System.out.println("Проверка записи в историю :" + taskManager.getHistory());
         System.out.println("Размер списка: " + taskManager.getHistory().size());
         System.out.println();
 
-        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        System.out.println("Проверка задач по приоритету :"/* + taskManager.getPrioritizedTasks()*/);
         taskManager.getPrioritizedTasks().forEach(System.out::println);
         System.out.println("Размер списка: " + taskManager.getPrioritizedTasks().size());
         System.out.println();
@@ -126,12 +126,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         System.out.println(loadTasksManager.getSubtasksList());
         System.out.println();
 
-        System.out.println("Проверка записи в историю : \n" + loadTasksManager.getHistory());
+        System.out.println("Проверка записи в историю :" + loadTasksManager.getHistory());
         System.out.println("Размер списка: " + loadTasksManager.getHistory().size());
         System.out.println();
 
 
-        System.out.println("Проверка задач по приоритету : \n"/* + taskManager.getPrioritizedTasks()*/);
+        System.out.println("Проверка задач по приоритету :"/* + taskManager.getPrioritizedTasks()*/);
         loadTasksManager.getPrioritizedTasks().forEach(System.out::println);
         System.out.println("Размер списка: " + loadTasksManager.getPrioritizedTasks().size());
         System.out.println();
@@ -156,7 +156,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             bufferedWriter.write("\n");
             bufferedWriter.write(historyToString(historyManager));
         } catch (IOException exception) {
-            throw new ManagerSaveException("Произошла ошибка при записи в файл");
+            throw new ManagerSaveException("Произошла ошибка при записи в файл", exception);
         }
     }
 
@@ -281,7 +281,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     fbtManager.generateId = maxId + 1;
                 }
             } catch (IOException exception) {
-                throw new ManagerSaveException("Произошла ошибка при чтении из файла");
+                throw new ManagerSaveException("Произошла ошибка при чтении из файла", exception);
             }
         }
         return fbtManager;

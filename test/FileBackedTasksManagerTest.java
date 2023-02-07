@@ -22,7 +22,7 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
     void fileEraser() throws IOException {
         try (PrintWriter pw = new PrintWriter(file)){
         } catch (IOException exception) {
-            throw new ManagerSaveException("Произошла ошибка при записи в файл");
+            throw new ManagerSaveException("Произошла ошибка при записи в файл", exception);
         }
     }
 

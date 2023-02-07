@@ -124,12 +124,13 @@ public class InMemoryTaskManagerTest extends TaskManagerTest<InMemoryTaskManager
     }
 
     @Test
-    void ShouldCheckTasksNotCrossInTime() { // TODO: 07.02.2023
+    void ShouldCheckTasksNotCrossInTime() {
         taskManager.addNewEpic(epic);
         taskManager.addNewTask(task);
         taskManager.addNewSubtask(subtask1);
         taskManager.addNewSubtask(subtask2);
-
+        assertTrue(subtask1.getStartTime().isAfter(task.getEndTime()));
+        assertTrue(subtask1.getEndTime().isBefore(subtask2.getStartTime()));
     }
 
     @Test

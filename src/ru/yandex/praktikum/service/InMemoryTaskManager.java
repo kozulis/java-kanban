@@ -60,7 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public int addNewTask(Task task) {
-        CheckTasksCrossInTime(task);
+        checkTasksCrossInTime(task);
         task.setId(generateId);
         task.setStatus(TaskStatus.NEW);
         tasks.put(task.getId(), task);
@@ -75,7 +75,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
-            CheckTasksCrossInTime(task);
+            checkTasksCrossInTime(task);
             prioritizedTasks.remove(tasks.get(task.getId()));
             tasks.put(task.getId(), task);
             prioritizedTasks.add(task);
@@ -138,7 +138,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public int addNewSubtask(Subtask subtask) {
         if (epics.containsKey(subtask.getEpicId())) {
-            CheckTasksCrossInTime(subtask);
+            checkTasksCrossInTime(subtask);
             subtask.setId(generateId);
             subtask.setStatus(TaskStatus.NEW);
             subtasks.put(subtask.getId(), subtask);
@@ -159,7 +159,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateSubtask(Subtask subtask) {
         if (subtasks.containsKey(subtask.getId())) {
-            CheckTasksCrossInTime(subtask);
+            checkTasksCrossInTime(subtask);
             prioritizedTasks.remove(subtasks.get(subtask.getId()));
             subtasks.put(subtask.getId(), subtask);
             prioritizedTasks.add(subtask);
@@ -258,7 +258,7 @@ public class InMemoryTaskManager implements TaskManager {
      */
     @Override
     public int addNewEpic(Epic epic) {
-        CheckTasksCrossInTime(epic);
+        checkTasksCrossInTime(epic);
         epic.setId(generateId);
         epic.setStatus(TaskStatus.NEW);
         epics.put(epic.getId(), epic);
@@ -272,7 +272,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
-            CheckTasksCrossInTime(epic);
+            checkTasksCrossInTime(epic);
             epics.put(epic.getId(), epic);
             changeEpicStatus(epic.getId());
             calculateEpicDuration(epic);
@@ -360,7 +360,7 @@ public class InMemoryTaskManager implements TaskManager {
     /**
      * проверка задач и подзадач на пересечение во времени
      */
-    protected void CheckTasksCrossInTime(Task task) {
+    protected void checkTasksCrossInTime(Task task) {
         if (getPrioritizedTasks().isEmpty() || task.getStartTime() == null && task.getEndTime() == null) {
             return;
         }
