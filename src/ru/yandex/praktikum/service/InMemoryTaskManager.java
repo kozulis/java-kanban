@@ -63,6 +63,7 @@ public class InMemoryTaskManager implements TaskManager {
         checkTasksCrossInTime(task);
         task.setId(generateId);
         task.setStatus(TaskStatus.NEW);
+        task.getTaskType();
         tasks.put(task.getId(), task);
         prioritizedTasks.add(task);
         generateId++;
@@ -141,6 +142,7 @@ public class InMemoryTaskManager implements TaskManager {
             checkTasksCrossInTime(subtask);
             subtask.setId(generateId);
             subtask.setStatus(TaskStatus.NEW);
+            subtask.getTaskType();
             subtasks.put(subtask.getId(), subtask);
             epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId());
             changeEpicStatus(subtask.getEpicId());
@@ -160,6 +162,7 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubtask(Subtask subtask) {
         if (subtasks.containsKey(subtask.getId())) {
             checkTasksCrossInTime(subtask);
+//            epics.get(subtask.getEpicId()).addSubtaskId(subtask.getId()); // TODO: 16.02.2023 добавил строку
             prioritizedTasks.remove(subtasks.get(subtask.getId()));
             subtasks.put(subtask.getId(), subtask);
             prioritizedTasks.add(subtask);
@@ -261,6 +264,7 @@ public class InMemoryTaskManager implements TaskManager {
         checkTasksCrossInTime(epic);
         epic.setId(generateId);
         epic.setStatus(TaskStatus.NEW);
+        epic.getTaskType();
         epics.put(epic.getId(), epic);
         generateId++;
         return epic.getId();
@@ -273,9 +277,10 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateEpic(Epic epic) {
         if (epics.containsKey(epic.getId())) {
             checkTasksCrossInTime(epic);
-            epics.put(epic.getId(), epic);
+            epics.put(epic.getId(), epic); // TODO: 16.02.2023
             changeEpicStatus(epic.getId());
             calculateEpicDuration(epic);
+//            epics.put(epic.getId(), epic); // TODO: 16.02.2023 проверить расположение строки
         } else {
             throw new ManagerException("Эпик не найден");
         }
@@ -307,7 +312,7 @@ public class InMemoryTaskManager implements TaskManager {
             int statusNew = 0;
             int statusDone = 0;
             Epic epic = epics.get(epicId);
-            if (!epic.getSubtaskIds().isEmpty()) {
+            if (epic.getSubtaskIds() != null) { // TODO: 16.02.2023 было isEmpty
                 for (Integer id : epic.getSubtaskIds()) {
                     if (subtasks.get(id).getStatus().equals(TaskStatus.NEW)) {
                         statusNew++;
@@ -323,7 +328,7 @@ public class InMemoryTaskManager implements TaskManager {
                     epic.setStatus(TaskStatus.IN_PROGRESS);
                 }
             } else {
-                epic.setStatus(epic.getStatus());
+                epic.setStatus(TaskStatus.NEW); // TODO: 16.02.2023 было epic.getStatus()
             }
         } else {
             throw new ManagerException("Id эпика указан не верно");
@@ -338,7 +343,7 @@ public class InMemoryTaskManager implements TaskManager {
         LocalDateTime EpicStartTime = null;
         LocalDateTime EpicEndTime = null;
 
-        if (!epic.getSubtaskIds().isEmpty()) {
+        if (epic.getSubtaskIds() != null) { // TODO: 16.02.2023 было isEmpty
             for (int idSubTask : epic.getSubtaskIds()) {
                 Subtask subtask = subtasks.get(idSubTask);
                 duration += subtask.getDuration();

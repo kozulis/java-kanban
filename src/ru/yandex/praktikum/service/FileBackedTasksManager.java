@@ -20,7 +20,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
         System.out.println("Создание новых задач");
         Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10,
-                LocalDateTime.now());
+                LocalDateTime.of(2022, 2, 6, 17, 0));
         taskManager.addNewTask(task);
         Task task1 = new Task("Позавтракать", "Сварить кашку", 20,
                 LocalDateTime.of(2022, 2, 8, 17, 0));

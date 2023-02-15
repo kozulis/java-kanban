@@ -4,24 +4,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task{
-    protected TaskType taskType = TaskType.EPIC;
     protected LocalDateTime endTime;
 
     private final ArrayList<Integer> subtaskIds = new ArrayList<>();
 
     public Epic(int id, String name, String description, TaskStatus status, long duration, LocalDateTime startTime) {
         super(id, name, description, status, duration, startTime);
-        setTaskType(TaskType.EPIC);
+//        setTaskType(TaskType.EPIC);
     }
 
     public Epic(int id, String name, String description, TaskStatus status) {
         super(id, name, description, status);
-        setTaskType(TaskType.EPIC);
+//        setTaskType(TaskType.EPIC);
     }
 
     public Epic(String name, String description) {
         super(name, description);
-        setTaskType(TaskType.EPIC);
+//        setTaskType(TaskType.EPIC);
     }
 
     public void setEndTime(LocalDateTime endTime) {
@@ -67,13 +66,13 @@ public class Epic extends Task{
     public String toString() {
         return "Epic{" +
                 "id=" + id +
-                ", taskType=" + taskType +
+                ", taskType=" + getTaskType() +
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
                 ", duration=" + duration +
-                ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
-                ", endTime=" + (endTime == null ? "null" : endTime.format(formatter)) +
+                ", startTime=" + (startTime == null ? "null" : startTime/*.format(formatter)*/) +
+                ", endTime=" + (endTime == null ? "null" : endTime/*.format(formatter)*/) +
                 '}';
     }
 }

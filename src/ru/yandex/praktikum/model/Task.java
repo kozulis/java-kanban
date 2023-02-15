@@ -6,13 +6,13 @@ import java.util.Objects;
 
 public class Task {
     protected int id;
-    protected TaskType taskType = TaskType.TASK;
+//    protected TaskType taskType;
     protected String name;
     protected TaskStatus status;
     protected String description;
     protected long duration;
     protected LocalDateTime startTime;
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy/HH:mm");
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy/HH:mm");
 
     public Task(int id, String name, String description, TaskStatus status, long duration, LocalDateTime startTime) {
         this.id = id;
@@ -21,6 +21,7 @@ public class Task {
         this.status = status;
         this.duration = duration;
         this.startTime = startTime;
+//        setTaskType(TaskType.TASK);
     }
 
     public Task(String name, String description, long duration, LocalDateTime startTime) {
@@ -28,6 +29,7 @@ public class Task {
         this.description = description;
         this.duration = duration;
         this.startTime = startTime;
+//        setTaskType(TaskType.TASK);
     }
 
     public Task(int id, String name, String description, TaskStatus status) {
@@ -35,11 +37,13 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = status;
+//        setTaskType(TaskType.TASK);
     }
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+//        setTaskType(TaskType.TASK);
     }
 
     public int getId() {
@@ -94,12 +98,12 @@ public class Task {
         return TaskType.TASK;
     }
 
-    public void setTaskType(TaskType taskType) {
-        this.taskType = taskType;
-    }
+//    public void setTaskType(TaskType taskType) {
+//        this.taskType = taskType;
+//    }
 
     public String toCSVForm() {
-        return String.format("%d,%s,%s,%s,%s,%s,%s", id, taskType, name, status,
+        return String.format("%d,%s,%s,%s,%s,%s,%s", id, getTaskType(), name, status,
                 description, duration, startTime);
     }
 
@@ -111,13 +115,13 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "id=" + id +
-                ", taskType=" + taskType +
+                ", taskType=" + getTaskType() +
                 ", name='" + name + '\'' +
                 ", status=" + status +
                 ", description='" + description + '\'' +
                 ", duration=" + duration +
-                ", startTime=" + (startTime == null ? "null" : startTime.format(formatter)) +
-                ", endTime=" + (getEndTime() == null ? "null" : getEndTime().format(formatter)) +
+                ", startTime=" + (startTime == null ? "null" : startTime/*.format(formatter)*/) +
+                ", endTime=" + (getEndTime() == null ? "null" : getEndTime()/*.format(formatter)*/) +
                 '}';
     }
 
@@ -126,11 +130,11 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && taskType == task.taskType && Objects.equals(name, task.name) && Objects.equals(description, task.description);
+        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, taskType, name, description);
+        return Objects.hash(id, name, description);
     }
 }
