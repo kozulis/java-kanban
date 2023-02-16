@@ -14,13 +14,13 @@ public class HttpTaskServer {
 
     private static final int PORT = 8080;
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    HttpServer httpServer;
+    private final HttpServer httpServer;
     protected TaskManager taskManager;
 
     public HttpTaskServer() throws IOException {
 
         this.taskManager = Managers.getDefault(); //todo изменить на httpTaskManager
-        HttpServer httpServer = HttpServer.create();
+        httpServer = HttpServer.create();
         httpServer.bind(new InetSocketAddress(PORT), 0);
         httpServer.createContext("/tasks/task", new TaskHandler(taskManager)); //задачи
         httpServer.createContext("/tasks/subtask", new SubtaskHandler(taskManager)); //подзадачи
@@ -28,8 +28,8 @@ public class HttpTaskServer {
         httpServer.createContext("/tasks/epic", new EpicHandler(taskManager)); //эпики
         httpServer.createContext("/tasks", new PriorityHandler(taskManager)); // приорити таскс
         httpServer.createContext("/tasks/history", new HistoryHandler(taskManager)); //история задач
-        httpServer.start();
-        System.out.println("HTTP-сервер запущен на " + PORT + " порту.");
+//        httpServer.start();
+//        System.out.println("HTTP-сервер запущен на " + PORT + " порту.");
     }
 
     public void start() {
@@ -51,6 +51,6 @@ public class HttpTaskServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new HttpTaskServer();
+        new HttpTaskServer().start();
     }
 }

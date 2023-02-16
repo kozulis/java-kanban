@@ -1,14 +1,17 @@
 package ru.yandex.praktikum;
 
 import ru.yandex.praktikum.model.*;
+import ru.yandex.praktikum.server.KVServer;
 import ru.yandex.praktikum.service.Managers;
 import ru.yandex.praktikum.service.TaskManager;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        new KVServer().start();
         TaskManager taskManager = Managers.getDefault();
 
         System.out.println("Создание новых задач");
@@ -96,6 +99,24 @@ public class Main {
 
         System.out.println("Проверка записи в историю: " + taskManager.getHistory());
         System.out.println("Размер списка: " + taskManager.getHistory().size());
+        System.out.println();
+
+        System.out.println("Обновление подзадач эпика");
+        subtask.setStatus(TaskStatus.IN_PROGRESS);
+        subtask1.setStatus(TaskStatus.DONE);
+        subtask2.setStatus(TaskStatus.DONE);
+        System.out.println("Обновили подзадачу: " + subtask.getId());
+        taskManager.updateSubtask(subtask);
+        System.out.println("Обновили подзадачу: " + subtask1.getId());
+        taskManager.updateSubtask(subtask1);
+        System.out.println("Получение списка подзадач определенного эпика");
+        System.out.println(taskManager.getSubtaskListByEpic(taskManager.getEpicById(3)));
+        System.out.println();
+
+        System.out.println("Обновление эпика");
+        epic1.setStatus(TaskStatus.DONE);
+        System.out.println("Обновили эпик: " + epic1.getId());
+        taskManager.updateEpic(epic1);
         System.out.println();
 
         System.out.println("Проверка задач по приоритету: " /*+ taskManager.getPrioritizedTasks()*/);
