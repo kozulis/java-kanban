@@ -11,7 +11,6 @@ import ru.yandex.praktikum.service.ManagerException;
 import ru.yandex.praktikum.service.TaskManager;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
@@ -131,7 +130,6 @@ public class TaskHandler implements HttpHandler {
 
     protected Task getTaskFromJson (HttpExchange httpExchange) throws IOException {
         try {
-//            InputStream inputStream = httpExchange.getRequestBody();
             String requestBody = new String(httpExchange.getRequestBody().readAllBytes(), DEFAULT_CHARSET);
             JsonElement jsonElement = JsonParser.parseString(requestBody);
             try {

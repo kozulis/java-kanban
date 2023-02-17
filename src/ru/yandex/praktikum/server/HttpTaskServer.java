@@ -15,11 +15,11 @@ public class HttpTaskServer {
     private static final int PORT = 8080;
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private final HttpServer httpServer;
-    protected TaskManager taskManager;
+    private final TaskManager taskManager;
 
-    public HttpTaskServer() throws IOException {
+    public HttpTaskServer(TaskManager taskManager) throws IOException {
 
-        this.taskManager = Managers.getDefault(); //todo изменить на httpTaskManager
+        this.taskManager = taskManager; //todo изменить на httpTaskManager
         httpServer = HttpServer.create();
         httpServer.bind(new InetSocketAddress(PORT), 0);
         httpServer.createContext("/tasks/task", new TaskHandler(taskManager)); //задачи
@@ -51,6 +51,7 @@ public class HttpTaskServer {
     }
 
     public static void main(String[] args) throws IOException {
-        new HttpTaskServer().start();
+        TaskManager taskManager = Managers.getDefault();
+        new HttpTaskServer(taskManager).start();
     }
 }

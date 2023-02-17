@@ -80,7 +80,7 @@ public class KVTaskClient {
     }
 
     /**
-     * проверка кода
+     * проверка кода ответа
      */
     private void checkStatusCode(HttpResponse<String> response) {
         int statusCode = response.statusCode();

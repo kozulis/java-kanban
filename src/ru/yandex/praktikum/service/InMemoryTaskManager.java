@@ -9,10 +9,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     protected int generateId = 1;
 
-    protected final Map<Integer, Task> tasks = new HashMap<>();
-    protected final Map<Integer, Epic> epics = new HashMap<>();
-    protected final Map<Integer, Subtask> subtasks = new HashMap<>();
-    protected final TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
+    protected Map<Integer, Task> tasks = new HashMap<>();
+    protected Map<Integer, Epic> epics = new HashMap<>();
+    protected Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected TreeSet<Task> prioritizedTasks = new TreeSet<>(Comparator.comparing(Task::getStartTime,
                     Comparator.nullsLast(Comparator.naturalOrder())).thenComparing(Task::getId));
 
     HistoryManager historyManager = Managers.getDefaultHistory();
