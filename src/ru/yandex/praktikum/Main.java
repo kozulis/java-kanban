@@ -1,6 +1,7 @@
 package ru.yandex.praktikum;
 
 import ru.yandex.praktikum.model.*;
+import ru.yandex.praktikum.server.HttpTaskServer;
 import ru.yandex.praktikum.server.KVServer;
 import ru.yandex.praktikum.service.Managers;
 import ru.yandex.praktikum.service.TaskManager;
@@ -14,7 +15,7 @@ public class Main {
 //
         new KVServer().start();
         TaskManager taskManager = Managers.getDefault();
-//        new HttpTaskServer(taskManager).start();
+        new HttpTaskServer(taskManager).start();
 
 //        HttpTaskManager taskManager = new HttpTaskManager(URI.create("http://localhost:8078"));
 

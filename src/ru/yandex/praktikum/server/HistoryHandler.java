@@ -3,12 +3,14 @@ package ru.yandex.praktikum.server;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import ru.yandex.praktikum.model.Task;
 import ru.yandex.praktikum.service.TaskManager;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static ru.yandex.praktikum.server.HttpTaskServer.writeResponse;
 
