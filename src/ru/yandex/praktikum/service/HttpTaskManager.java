@@ -43,67 +43,68 @@ public class HttpTaskManager extends FileBackedTasksManager {
      * Извлечение из KVServer`а
      */
 
-    public void loadFromServer() {
+/*    public void loadFromServer() {
         kvTaskClient.load("tasks");
         kvTaskClient.load("epics");
         kvTaskClient.load("subtasks");
-        kvTaskClient.load("history");
-//    public void loadFromServer() {
-//        if (!kvTaskClient.load("tasks").isEmpty()) {
-//            JsonElement jsonTasks = JsonParser.parseString(kvTaskClient.load("tasks"));
-//            JsonArray tasksArray = jsonTasks.getAsJsonArray();
-//            for (JsonElement jsonTask : tasksArray) {
-//                Task task = gson.fromJson(jsonTask, Task.class);
-//                int id = task.getId();
-//                tasks.put(id, task);
-//                prioritizedTasks.add(task);
-//                if (id > generateId) {
-//                    generateId = id;
-//                }
-//            }
-//        }
-//
-//        if (!kvTaskClient.load("epics").isEmpty()) {
-//            JsonElement jsonEpics = JsonParser.parseString(kvTaskClient.load("epics"));
-//            JsonArray epicsArray = jsonEpics.getAsJsonArray();
-//            for (JsonElement jsonEpic : epicsArray) {
-//                Epic epic = gson.fromJson(jsonEpic, Epic.class);
-//                int id = epic.getId();
-//                epics.put(id, epic);
-//                if (id > generateId) {
-//                    generateId = id;
-//                }
-//            }
-//        }
-//
-//        if (!kvTaskClient.load("subtasks").isEmpty()) {
-//            JsonElement jsonSubtasks = JsonParser.parseString(kvTaskClient.load("subtasks"));
-//            JsonArray subtasksArray = jsonSubtasks.getAsJsonArray();
-//            for (JsonElement jsonSubtask : subtasksArray) {
-//                Subtask subtask = gson.fromJson(jsonSubtask, Subtask.class);
-//                int id = subtask.getId();
-//                subtasks.put(id, subtask);
-//                prioritizedTasks.add(subtask);
-//                if (id > generateId) {
-//                    generateId = id;
-//                }
-//            }
-//        }
-//
-//        if (!kvTaskClient.load("history").isEmpty()) {
-//            JsonElement historyList = JsonParser.parseString(kvTaskClient.load("history"));
-//            JsonArray historyArray = historyList.getAsJsonArray();
-//            for (JsonElement jsonId : historyArray) {
-//                int id = jsonId.getAsInt();
-//                if (tasks.containsKey(id)) {
-//                    historyManager.add(tasks.get(id));
-//                } else if (epics.containsKey(id)) {
-//                    historyManager.add(epics.get(id));
-//                } else if (subtasks.containsKey(id)) {
-//                    historyManager.add(subtasks.get(id));
-//                }
-//            }
-//        }
-//    }
+        kvTaskClient.load("history");*/
+
+
+    public void loadFromServer() {
+        if (!kvTaskClient.load("tasks").isEmpty()) {
+            JsonElement jsonTasks = JsonParser.parseString(kvTaskClient.load("tasks"));
+            JsonArray tasksArray = jsonTasks.getAsJsonArray();
+            for (JsonElement jsonTask : tasksArray) {
+                Task task = gson.fromJson(jsonTask, Task.class);
+                int id = task.getId();
+                tasks.put(id, task);
+                prioritizedTasks.add(task);
+                if (id > generateId) {
+                    generateId = id;
+                }
+            }
+        }
+
+        if (!kvTaskClient.load("epics").isEmpty()) {
+            JsonElement jsonEpics = JsonParser.parseString(kvTaskClient.load("epics"));
+            JsonArray epicsArray = jsonEpics.getAsJsonArray();
+            for (JsonElement jsonEpic : epicsArray) {
+                Epic epic = gson.fromJson(jsonEpic, Epic.class);
+                int id = epic.getId();
+                epics.put(id, epic);
+                if (id > generateId) {
+                    generateId = id;
+                }
+            }
+        }
+
+        if (!kvTaskClient.load("subtasks").isEmpty()) {
+            JsonElement jsonSubtasks = JsonParser.parseString(kvTaskClient.load("subtasks"));
+            JsonArray subtasksArray = jsonSubtasks.getAsJsonArray();
+            for (JsonElement jsonSubtask : subtasksArray) {
+                Subtask subtask = gson.fromJson(jsonSubtask, Subtask.class);
+                int id = subtask.getId();
+                subtasks.put(id, subtask);
+                prioritizedTasks.add(subtask);
+                if (id > generateId) {
+                    generateId = id;
+                }
+            }
+        }
+
+        if (!kvTaskClient.load("history").isEmpty()) {
+            JsonElement historyList = JsonParser.parseString(kvTaskClient.load("history"));
+            JsonArray historyArray = historyList.getAsJsonArray();
+            for (JsonElement jsonId : historyArray) {
+                int id = jsonId.getAsInt();
+                if (tasks.containsKey(id)) {
+                    historyManager.add(tasks.get(id));
+                } else if (epics.containsKey(id)) {
+                    historyManager.add(epics.get(id));
+                } else if (subtasks.containsKey(id)) {
+                    historyManager.add(subtasks.get(id));
+                }
+            }
+        }
     }
 }

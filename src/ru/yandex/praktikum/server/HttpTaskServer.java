@@ -2,7 +2,6 @@ package ru.yandex.praktikum.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import ru.yandex.praktikum.service.Managers;
 import ru.yandex.praktikum.service.TaskManager;
 
 import java.io.IOException;
@@ -15,11 +14,9 @@ public class HttpTaskServer {
     private static final int PORT = 8080;
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private final HttpServer httpServer;
-    private final TaskManager taskManager;
 
     public HttpTaskServer(TaskManager taskManager) throws IOException {
 
-        this.taskManager = taskManager; //todo изменить на httpTaskManager
         httpServer = HttpServer.create();
         httpServer.bind(new InetSocketAddress(PORT), 0);
         httpServer.createContext("/tasks/task", new TaskHandler(taskManager)); //задачи
@@ -50,8 +47,8 @@ public class HttpTaskServer {
         exchange.close();
     }
 
-    public static void main(String[] args) throws IOException {
-        TaskManager taskManager = Managers.getDefault();
-        new HttpTaskServer(taskManager).start();
-    }
+//    public static void main(String[] args) throws IOException {
+//        TaskManager taskManager = Managers.getDefault();
+//        new HttpTaskServer(taskManager).start();
+//    }
 }
