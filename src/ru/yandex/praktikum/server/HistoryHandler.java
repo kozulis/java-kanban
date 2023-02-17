@@ -30,7 +30,7 @@ public class HistoryHandler implements HttpHandler {
             String requestMethod = httpExchange.getRequestMethod();
 
             if (requestMethod.equals("GET") && Pattern.matches("^/tasks/history$", path)) {
-                String response = gson.toJson(taskManager.getHistory());
+                String response = gson.toJson(taskManager.getHistory().stream().map(Task::getId).collect(Collectors.toList()));
                 writeResponse(httpExchange, response, 200);
             } else {
                 writeResponse(httpExchange, "Некорректный запрос списка истории просмотра", 400);
