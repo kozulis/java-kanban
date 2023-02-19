@@ -7,8 +7,6 @@ import static ru.yandex.praktikum.model.TaskStatus.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.praktikum.model.*;
-import ru.yandex.praktikum.service.ManagerException;
-import ru.yandex.praktikum.service.TaskManager;
 
 import java.time.LocalDateTime;
 import java.util.List;

@@ -12,7 +12,7 @@ public class GsonConverter {
                 .setPrettyPrinting()
                 .serializeNulls()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-                .registerTypeAdapter(Duration.class, new DurationAdapter())
+//                .registerTypeAdapter(Duration.class, new DurationAdapter())
                 .create();
     }
 }
