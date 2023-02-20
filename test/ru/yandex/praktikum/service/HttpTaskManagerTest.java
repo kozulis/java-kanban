@@ -31,16 +31,6 @@ class HttpTaskManagerTest {
             LocalDateTime.of(2022, 2, 7, 12, 0));
     Subtask subtask3 = new Subtask(1, "Subtask2 name", "Subtask2 description");
 
-//    @BeforeEach
-//    public void beforeEach() throws IOException {
-//        super.beforeEach();
-//        kvServer = new KVServer();
-//        kvServer.start();
-//        taskManager = new HttpTaskManager(URI.create("http://localhost:8078"));
-//        httpTaskServer = new HttpTaskServer(taskManager);
-//        httpTaskServer.start();
-//    }
-
     @BeforeEach
     public void startAndCreate() throws IOException {
 
