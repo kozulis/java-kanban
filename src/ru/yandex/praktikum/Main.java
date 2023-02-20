@@ -12,16 +12,10 @@ import java.time.LocalDateTime;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//
+
         new KVServer().start();
         TaskManager taskManager = Managers.getDefault();
         new HttpTaskServer(taskManager).start();
-
-//        HttpTaskManager taskManager = new HttpTaskManager(URI.create("http://localhost:8078"));
-
-//        taskManager.loadFromServer();
-
-//        TaskManager taskManager = Managers.getDefaultFBTManager();
 
         System.out.println("Создание новых задач");
         Task task = new Task("Утренняя зарядка", "Пробежка 3 км", 10,
