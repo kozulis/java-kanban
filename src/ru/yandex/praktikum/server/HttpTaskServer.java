@@ -16,7 +16,6 @@ public class HttpTaskServer {
     private final HttpServer httpServer;
 
     public HttpTaskServer(TaskManager taskManager) throws IOException {
-
         httpServer = HttpServer.create();
         httpServer.bind(new InetSocketAddress(PORT), 0);
         httpServer.createContext("/tasks/task", new TaskHandler(taskManager)); //задачи
@@ -25,18 +24,16 @@ public class HttpTaskServer {
         httpServer.createContext("/tasks/epic", new EpicHandler(taskManager)); //эпики
         httpServer.createContext("/tasks", new PriorityHandler(taskManager)); // приорити таскс
         httpServer.createContext("/tasks/history", new HistoryHandler(taskManager)); //история задач
-//        httpServer.start();
-//        System.out.println("HTTP-сервер запущен на " + PORT + " порту.");
     }
 
     public void start() {
         httpServer.start();
-        System.out.println("HTTP-сервер запущен на " + PORT + " порту.");
+        System.out.printf("HTTP-сервер запущен на %d порту.", PORT);
     }
 
     public void stop() {
         httpServer.stop(0);
-        System.out.println("HTTP-сервер остановлен на " + PORT + " порту.");
+        System.out.printf("HTTP-сервер запущен на %d порту.", PORT);
     }
 
     protected static void writeResponse(HttpExchange exchange, String response, int responseCode) throws IOException {
@@ -46,9 +43,4 @@ public class HttpTaskServer {
         exchange.getResponseBody().write(bytes);
         exchange.close();
     }
-
-//    public static void main(String[] args) throws IOException {
-//        TaskManager taskManager = Managers.getDefault();
-//        new HttpTaskServer(taskManager).start();
-//    }
 }

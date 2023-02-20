@@ -5,9 +5,6 @@ import java.net.URI;
 
 public class Managers {
     public static TaskManager getDefault() {
-//        return new InMemoryTaskManager();
-//        return new FileBackedTasksManager(new File("resources/historyData.csv"));
-//        return FileBackedTasksManager.loadFromFile(new File("resources/historyData.csv"));
         return new HttpTaskManager(URI.create("http://localhost:8078"));
     }
 

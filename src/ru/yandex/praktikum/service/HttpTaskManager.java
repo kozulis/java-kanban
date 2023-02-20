@@ -42,14 +42,6 @@ public class HttpTaskManager extends FileBackedTasksManager {
     /**
      * Извлечение из KVServer`а
      */
-
-/*    public void loadFromServer() {
-        kvTaskClient.load("tasks");
-        kvTaskClient.load("epics");
-        kvTaskClient.load("subtasks");
-        kvTaskClient.load("history");*/
-
-
     public void loadFromServer() {
         if (!kvTaskClient.load("tasks").isEmpty()) {
             JsonElement jsonTasks = JsonParser.parseString(kvTaskClient.load("tasks"));
